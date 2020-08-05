@@ -21,7 +21,7 @@ export default function Home(props) {
 
   return (
     <div className={classes}>
-      {children}
+      Home
     </div>
   );
 }

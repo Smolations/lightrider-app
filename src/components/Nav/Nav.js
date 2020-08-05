@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   Container,
   Divider,
@@ -32,13 +33,19 @@ export default function Nav(props) {
 
 
   return (
-    <Menu fixed="top" inverted>
+    <Menu className={classes} fixed="top" inverted>
       <Container>
         <Menu.Item as="a" header>
           <Image size="mini" src={logo} style={{ marginRight: '1.5em' }} />
-          Project Name
+          TTRPG
         </Menu.Item>
-        <Menu.Item as="a">Home</Menu.Item>
+
+        <Menu.Item>
+          <NavLink to="/">Home</NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to="/reference">Reference</NavLink>
+        </Menu.Item>
 
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
