@@ -4,14 +4,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Container,
-  Divider,
   Dropdown,
-  Grid,
-  Header,
   Image,
-  List,
   Menu,
-  Segment,
 } from 'semantic-ui-react';
 
 import logo from './logo.svg';
@@ -24,12 +19,10 @@ import './Nav.scss';
  */
 export default function Nav(props) {
   const {
-    children,
     className,
   } = props;
 
-  const classes = classNames('Nav', {
-  }, className);
+  const classes = classNames('Nav', className);
 
 
   return (
@@ -42,6 +35,9 @@ export default function Nav(props) {
 
         <Menu.Item>
           <NavLink to="/">Home</NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to="/characters">Characters</NavLink>
         </Menu.Item>
         <Menu.Item>
           <NavLink to="/reference">Reference</NavLink>
@@ -73,7 +69,7 @@ export default function Nav(props) {
 Nav.displayName = 'Nav';
 
 Nav.propTypes = {
-  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 Nav.defaultProps = {

@@ -8,9 +8,11 @@ import {
 } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
-import { Home } from '../Home';
-import { Nav } from '../Nav';
-import { Reference } from '../Reference';
+import { Nav } from './components/Nav';
+import { CharactersPage, CharacterCreatePage } from './pages/characters';
+
+import { HomePage } from './pages/home';
+import { ReferencePage } from './pages/reference';
 
 import logo from './logo.svg';
 
@@ -25,11 +27,17 @@ export default function App() {
 
         <Container>
           <Switch>
+            <Route path="/characters/create">
+              <CharacterCreatePage />
+            </Route>
+            <Route path="/characters">
+              <CharactersPage />
+            </Route>
             <Route path="/reference">
-              <Reference />
+              <ReferencePage />
             </Route>
             <Route path="/">
-              <Home />
+              <HomePage />
             </Route>
           </Switch>
         </Container>
