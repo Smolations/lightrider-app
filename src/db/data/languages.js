@@ -1,6 +1,4 @@
-import { taffy } from 'taffydb';
-
-export default taffy([
+export default [
   { id: 1, languageCategoryId: 1, name: 'Russian', description: 'Circle language of Government' },
   { id: 2, languageCategoryId: 1, name: 'British', description: 'Circle language of the people' },
   { id: 3, languageCategoryId: 1, name: 'Afrikaans', description: 'Circle language of commerce' },
@@ -16,4 +14,4 @@ export default taffy([
 
   { id: 11, languageCategoryId: 4, name: 'Visserian', description: 'Non-Aligned language of scholarship' },
   { id: 12, languageCategoryId: 4, name: 'Thessan', description: 'Main Valnox-Aech language' },
-]);
+];

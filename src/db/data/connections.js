@@ -1,7 +1,4 @@
-import { taffy } from 'taffydb';
-
-
-export default taffy([
+export default [
   { id: 1, connectionCategoryId: 1, name: 'Royal Guard', description: 'The personal legion of the Russian King' },
   { id: 2, connectionCategoryId: 1, name: 'White Ministry', description: 'The ministry that governs all interstellar affairs in the Circle' },
   { id: 3, connectionCategoryId: 1, name: '7th Expeditionary', description: 'The most cutting-edge exploration division in known space' },
@@ -33,4 +30,4 @@ export default taffy([
   { id: 22, connectionCategoryId: 8, name: 'Brokers', description: 'Those that disseminate jobs to freelancers' },
   { id: 23, connectionCategoryId: 8, name: 'Mercenaries', description: 'Those that fight for money' },
   { id: 24, connectionCategoryId: 8, name: 'Safehouses', description: 'The network of shelters for those with coin or a prior agreement' },
-]);
+];

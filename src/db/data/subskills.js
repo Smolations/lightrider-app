@@ -1,6 +1,4 @@
-import { taffy } from 'taffydb';
-
-export default taffy([
+export default [
   { id: 1, skillId: 1, name: 'Advantages', description: 'Advantages allows the character to seek ways in which to best use the environment in combat.' },
   { id: 2, skillId: 1, name: 'Mapping', description: 'Mapping allows the character to accurately predict the layout of the environment.' },
   { id: 3, skillId: 1, name: 'Traps', description: 'Traps allows the character to detect/disarm traps and detect ambushes in the immediate environment.' },
@@ -32,4 +30,4 @@ export default taffy([
   { id: 22, skillId: 8, name: 'Lockpicking', description: 'Lockpicking allows the character to bypass locks, both mechanical and electric.' },
   { id: 23, skillId: 8, name: 'Stealth', description: 'Stealth allows the character to evade detection.' },
   { id: 24, skillId: 8, name: 'Theft', description: 'Theft allows a character to take possession of items.' },
-]);
+];

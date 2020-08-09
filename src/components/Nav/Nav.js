@@ -30,7 +30,7 @@ export default function Nav(props) {
       <Container>
         <Menu.Item as="a" header>
           <Image size="mini" src={logo} style={{ marginRight: '1.5em' }} />
-          TTRPG
+          Lightrider App
         </Menu.Item>
 
         <Menu.Item>

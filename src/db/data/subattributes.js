@@ -1,7 +1,4 @@
-import { taffy } from 'taffydb';
-
-
-export default taffy([
+export default [
   { id: 1, attributeId: 1, name: 'Fury', description: 'Fury is how much power a character can put behind each attack, Mélée or Ranged. For each Point in Fury, the threshold needed to achieve an extreme roll (critical success) on all DMG rolls is decreased by 1. (no negative)' },
   { id: 2, attributeId: 1, name: 'Muscles', description: 'Muscles is a character’s ability to generate force against the physical world. For each Point in Muscles, the player will receive an extra column of Inventory space AND can carry 1 extra Weapon. (each negative Point will reduce the character’s Inventory space by 1 row and reduce the number of Weapons the character can carry by 1)' },
   { id: 3, attributeId: 1, name: 'Weapons', description: 'Weapons is a character’s skill in wielding Mélée Weapons. For each Point in Weapons, the player will receive +1A when making ACC rolls with Mélée Weapons. (each negative Point will yield -1A)' },
@@ -25,4 +22,4 @@ export default taffy([
   { id: 16, attributeId: 6, name: 'Endurance', description: 'Endurance is how far a character’s body can be pushed before it fails. For each Point in Endurance, the player will receive +1A when making Armour Throws. (each negative Point will yield -1A)' },
   { id: 17, attributeId: 6, name: 'Heart', description: 'Heart is a character’s determination and resolve, allowing the character to push through mortal scenarios. For each Point in Heart, the player may gain 2 more Bleedout Counters before he is slain. (each negative Point will reduce the number of Bleedout Counters before mortality by 1)' },
   { id: 18, attributeId: 6, name: 'Vitality', description: 'Vitality is a character’s raw life-energy. For each Point in Vitality, increase the character’s maximum Health by 1. (no negative)' },
-]);
+];

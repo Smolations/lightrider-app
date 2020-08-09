@@ -1,6 +1,4 @@
-import { taffy } from 'taffydb';
-
-export default taffy([
+export default [
   { id: 1, name: 'Scouting', description: 'Scouting is a character’s ability to understand and synthesise the landscape ahead.' },
   { id: 2, name: 'Space Combat', description: 'Space Combat is a character’s ability to operate effectively in space.' },
   { id: 3, name: 'Terrestial Combat', description: 'Terrestrial Combat is a character\'s ability to operate effectively on land.' },
@@ -9,4 +7,4 @@ export default taffy([
   { id: 6, name: 'Mending', description: 'Mending is a character’s ability to raise the physical condition of living beings.' },
   { id: 7, name: 'Perception', description: 'Perception is a character’s ability to detect elements of the surrounding world.' },
   { id: 8, name: 'Clandestinity', description: 'Clandestinity is a character’s ability to go places they ought not.' },
-]);
+];

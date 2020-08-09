@@ -1,6 +1,4 @@
-import { taffy } from 'taffydb';
-
-export default taffy([
+export default [
   { id: 1, classId: 1, name: 'Soldier', description: 'A Soldier is a trained military combatant whose career is combat. Soldiers fire fast and hard. A Soldier may specialise in Mélée Weapons or Ranged Weapons. A Soldier receives +1 ACU when making attacks with that kind of Weapon. Making an attack as a Soldier does not end the turn.' },
   { id: 2, classId: 1, name: 'Duelist', description: 'A  Duelist is a specialist in light Weapons such as pistols and daggers. They move quickly across the battlefield to out-maneuver their opponents. A Duelist receives +1A to both ACU and DMG rolls when attacking with a Rank 1 or Rank 2 Weapon, and gains +1 Speed whenever he is dual-wielding. Additionally, a Duelist can always smuggle all equipped Weapons, even if unconscious.' },
   { id: 3, classId: 1, name: 'Sanguinist', description: 'A Sanguinist is a warrior able to push his body past its normal physiologic limits. He destroys his own body little by little in order to unlock the true potential of Human beings. A Sanguinist may only use Mélée Weapons. A Sanguinist may spend Health to gain benefits on the battlefield.' },
@@ -19,4 +17,4 @@ export default taffy([
   { id: 12, classId: 5, name: 'Exalted (Alteas)', description: 'An Exalted is a common person whose physiology has been fundamentally changed by some unnatural force, morphing into powerful shapes and beings. If Alteas:  at the beginning of each of the character’s combat turns, one foe suffers 1 Damage; gain 1 Evolution-Point. If Halstreck:  at the beginning of each of the character’s combat turns, one Ally (other than himself) gains 1 Health; gain 1 Evolution-Point (see Aberrant (Exalted) & Forms).' },
   { id: 13, classId: 5, name: 'Exalted (Halstrek)', description: 'An Exalted is a common person whose physiology has been fundamentally changed by some unnatural force, morphing into powerful shapes and beings. If Alteas:  at the beginning of each of the character’s combat turns, one foe suffers 1 Damage; gain 1 Evolution-Point. If Halstreck:  at the beginning of each of the character’s combat turns, one Ally (other than himself) gains 1 Health; gain 1 Evolution-Point (see Aberrant (Exalted) & Forms).' },
   { id: 14, classId: 5, name: 'Daemon Hunter', description: 'A Daemon Hunter is someone skilled in the art of capturing and purifying Daemons. A Daemon Hunter may summon Daemons from his Daemon-Pool at will, swapping out his stats and combat abilities for the Daemon’s. A Daemon Hunter may not be healed unless he is not in a Form, but sacrifices a Daemon’s Health instead of his own when in a Form (see Aberrant (Daemon Hunter) & Forms).' },
-]);
+];

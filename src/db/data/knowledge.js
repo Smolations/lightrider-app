@@ -1,6 +1,4 @@
-import { taffy } from 'taffydb';
-
-export default taffy([
+export default [
   { id: 1, knowledgeCategoryId: 1, name: 'Circle Politics', description: 'The current political landscape of the Circle' },
   { id: 2, knowledgeCategoryId: 1, name: 'Circle Customs', description: 'The customs of the people in the Circle' },
   { id: 3, knowledgeCategoryId: 1, name: 'Thurelian Politics', description: 'The current political landscape of the Thurelian Republic' },
@@ -32,4 +30,4 @@ export default taffy([
   { id: 25, knowledgeCategoryId: 5, name: 'Daemons', description: 'Those that reside in the Underworld' },
   { id: 26, knowledgeCategoryId: 5, name: 'Angels', description: 'The angelic watchers of the world' },
   { id: 27, knowledgeCategoryId: 5, name: 'Spirits', description: 'The great beings that wander the realm of Anokaia' },
-]);
+];

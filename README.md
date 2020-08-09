@@ -1,5 +1,5 @@
-# ttrpg
-A character management and in-game utility for a TTRPG.
+# Lightrider App
+A character management and in-game utility for the Lightrider TTRPG.
 
 ---
 
