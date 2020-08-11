@@ -36,7 +36,7 @@ export default function CharactersPage(props) {
 CharactersPage.displayName = 'CharactersPage';
 
 CharactersPage.propTypes = {
-  // children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 CharactersPage.defaultProps = {

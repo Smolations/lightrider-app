@@ -6,12 +6,12 @@ export default function newCharacterReducer(state, action) {
   let newState;
 
   switch (action.type) {
-    case newCharacterConstants.UPDATE_ONE_SHOT: {
+    case newCharacterConstants.UPDATE_ONE_SHOT:
       newState = {
         ...state,
         oneShot: payload,
       };
-    } break;
+      break;
 
     case newCharacterConstants.UPDATE_BONUS: {
       const languages = {};
@@ -32,56 +32,56 @@ export default function newCharacterReducer(state, action) {
       };
     } break;
 
-    case newCharacterConstants.UPDATE_PLAYER_NAME: {
+    case newCharacterConstants.UPDATE_PLAYER_NAME:
       newState = {
         ...state,
         playerName: payload,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_NAME: {
+    case newCharacterConstants.UPDATE_NAME:
       newState = {
         ...state,
         name: payload,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_RACE: {
+    case newCharacterConstants.UPDATE_RACE:
       newState = {
         ...state,
         raceId: payload,
         factionId: null,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_FACTION: {
+    case newCharacterConstants.UPDATE_FACTION:
       newState = {
         ...state,
         factionId: payload,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_CLASS: {
+    case newCharacterConstants.UPDATE_CLASS:
       newState = {
         ...state,
         classId: payload,
         subclassId: null,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_SUBCLASS: {
+    case newCharacterConstants.UPDATE_SUBCLASS:
       newState = {
         ...state,
         subclassId: payload,
       };
-    } break;
+      break;
 
-    case newCharacterConstants.UPDATE_RELIGION: {
+    case newCharacterConstants.UPDATE_RELIGION:
       newState = {
         ...state,
         religionId: payload,
       };
-    } break;
+      break;
 
     case newCharacterConstants.UPDATE_LANGUAGE_CATEGORY: {
       const [languageIndex, languageCategoryId] = payload;

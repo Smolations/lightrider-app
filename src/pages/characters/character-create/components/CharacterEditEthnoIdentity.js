@@ -1,20 +1,15 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  Checkbox,
   Form,
   Grid,
 } from 'semantic-ui-react';
 
 import { DbSelect } from '../../../../components/DbSelect';
 
-import { lokiCollections } from '../../../../db';
-
 import { useGlobalStateValue } from '../../../../state-management';
 import { globalNewCharacterActions } from '../../../../state-management/new-character';
-
-// import './CharacterEditEthnoIdentity.scss';
 
 
 const {

@@ -13,12 +13,10 @@ import './HomePage.scss';
  */
 export default function HomePage(props) {
   const {
-    children,
     className,
   } = props;
 
-  const classes = classNames('HomePage', {
-  }, className);
+  const classes = classNames('HomePage', className);
 
 
   return (
@@ -32,7 +30,7 @@ export default function HomePage(props) {
 HomePage.displayName = 'HomePage';
 
 HomePage.propTypes = {
-  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 HomePage.defaultProps = {

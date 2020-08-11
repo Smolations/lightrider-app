@@ -1,18 +1,13 @@
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {
-  Button,
-  Checkbox,
-  Container,
   Form,
   Grid,
   Header,
-  Select,
 } from 'semantic-ui-react';
 
-import dbs, { lokiCollections } from '../../../../db';
+import { lokiCollections } from '../../../../db';
 
 // import './CharacterEditAttributes.scss';
 
@@ -22,10 +17,7 @@ import dbs, { lokiCollections } from '../../../../db';
  */
 export default function CharacterEditAttributes(props) {
   const {
-    character,
-    children,
     className,
-    onChange,
   } = props;
 
   const classes = classNames('CharacterEditAttributes', className);
@@ -69,19 +61,6 @@ export default function CharacterEditAttributes(props) {
     setAttrValues(attributeValues);
     setSubattrValues(subattributeValues);
   }, []);
-
-  useEffect(() => {
-    const {
-      playerName,
-      name,
-      raceId,
-      factionId,
-      classId,
-      subclassId,
-      bonusId,
-    } = character;
-    console.log('[CharacterEditAttributes useEffect] character change: %o', character);
-  }, [character]);
 
                 // <Form.Button icon="minus" onClick={() => changeAttrValue(attr.id, -1)} />
                 // <Form.Button icon="plus" onClick={() => changeAttrValue(attr.id, 1)} />

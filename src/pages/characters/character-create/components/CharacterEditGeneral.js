@@ -1,22 +1,15 @@
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  Checkbox,
-  Container,
   Form,
   Grid,
 } from 'semantic-ui-react';
 
 import { DbSelect } from '../../../../components/DbSelect';
 
-import { lokiCollections } from '../../../../db';
-
 import { useGlobalStateValue } from '../../../../state-management';
 import { globalNewCharacterActions } from '../../../../state-management/new-character';
-
-// import './CharacterEditGeneral.scss';
 
 
 const {

@@ -3,15 +3,10 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import {
   Button,
-  Checkbox,
-  Container,
-  Form,
   Grid,
-  Header,
   Icon,
   Modal,
   Progress,
-  Select,
   Step,
 } from 'semantic-ui-react';
 
@@ -88,23 +83,10 @@ export default function CharacterCreatePage(props) {
   console.log('[CharacterCreatePage] character: %o', character);
 
 
-
-  function nextStep() {
-    setStep(step + 1);
-  }
-
-  function prevStep() {
-    setStep(step - 1);
-  }
-
   function validateInfo() {
     return false;
   }
 
-
-  function handleCharacterChange(changes) {
-    setCharacter(char => ({ ...char, ...changes }));
-  }
 
   function handleOneShotChange(oneShotChoice) {
     dispatch(updateNewCharacterOneShot(oneShotChoice));
@@ -115,18 +97,12 @@ export default function CharacterCreatePage(props) {
   function renderStep() {
     const steps = [
       <CharacterEditGeneral
-        character={character}
-        onChange={handleCharacterChange}
         onValidated={isValid => {}}
       />,
       <CharacterEditEthnoIdentity
-        character={character}
-        onChange={handleCharacterChange}
         onValidated={isValid => {}}
       />,
       <CharacterEditAttributes
-        character={character}
-        onChange={handleCharacterChange}
         onValidated={isValid => {}}
       />,
     ];
@@ -151,21 +127,21 @@ export default function CharacterCreatePage(props) {
       )}
 
       <Step.Group size="mini" fluid>
-        <Step active={step == 1} onClick={()  => setStep(1)}>
+        <Step active={step === 1} onClick={()  => setStep(1)}>
           <Icon name="birthday cake" />
           <Step.Content>
             <Step.Title>General</Step.Title>
           </Step.Content>
         </Step>
 
-        <Step active={step == 2} onClick={()  => setStep(2)}>
+        <Step active={step === 2} onClick={()  => setStep(2)}>
           <Icon name="dna" />
           <Step.Content>
             <Step.Title>Ethno&ndash;Identity</Step.Title>
           </Step.Content>
         </Step>
 
-        <Step active={step == 3} onClick={()  => setStep(3)}>
+        <Step active={step === 3} onClick={()  => setStep(3)}>
           <Icon name="heartbeat" />
           <Step.Content>
             <Step.Title>Attributes</Step.Title>
@@ -216,7 +192,7 @@ export default function CharacterCreatePage(props) {
 CharacterCreatePage.displayName = 'CharacterCreatePage';
 
 CharacterCreatePage.propTypes = {
-  // children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 CharacterCreatePage.defaultProps = {

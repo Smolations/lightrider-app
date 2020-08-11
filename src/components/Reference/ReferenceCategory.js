@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Header, Table } from 'semantic-ui-react';
 
-import dbs from '../../db';
-
 import './ReferenceCategory.scss';
 
 
@@ -57,7 +55,7 @@ export default function ReferenceCategory(props) {
 ReferenceCategory.displayName = 'ReferenceCategory';
 
 ReferenceCategory.propTypes = {
-  // children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 ReferenceCategory.defaultProps = {
