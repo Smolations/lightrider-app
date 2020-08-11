@@ -7,151 +7,78 @@ import {
   Container,
   Form,
   Grid,
-  Select,
 } from 'semantic-ui-react';
 
-import dbs, { lokiCollections } from '../../../../db';
+import { DbSelect } from '../../../../components/DbSelect';
+
+import { lokiCollections } from '../../../../db';
+
+import { useGlobalStateValue } from '../../../../state-management';
+import { globalNewCharacterActions } from '../../../../state-management/new-character';
 
 // import './CharacterEditGeneral.scss';
+
+
+const {
+  updateNewCharacterBonusId,
+  updateNewCharacterPlayerName,
+  updateNewCharacterName,
+  updateNewCharacterRaceId,
+  updateNewCharacterFactionId,
+  updateNewCharacterClassId,
+  updateNewCharacterSubclassId,
+} = globalNewCharacterActions;
 
 
 /**
  *
  */
 export default function CharacterEditGeneral(props) {
-  const {
-    character,
-    children,
-    className,
-    onChange,
-  } = props;
+  const { className } = props;
 
   const classes = classNames('CharacterEditGeneral', className);
 
-  const [charPlayerName, setCharPlayerName] = useState(character.playerName);
-  const [charName, setCharName] = useState(character.name);
-
-  const [charRaceId, setCharRaceId] = useState(character.raceId);
-  const [charFactionId, setCharFactionId] = useState(character.factionId);
-
-  const [charClassId, setCharClassId] = useState(character.classId);
-  const [charSubclassId, setCharSubclassId] = useState(character.subclassId);
-
-  const [charBonusId, setCharBonusId] = useState(character.bonusId);
-
-  const [raceOptions, setRaceOptions] = useState([]);
-  const [factionOptions, setFactionOptions] = useState([]);
-  const [classOptions, setClassOptions] = useState([]);
-  const [subclassOptions, setSubclassOptions] = useState([]);
-  const [bonusOptions, setBonusOptions] = useState([]);
-
-
-  function getFactionOptions(raceId) {
-    const searchFilter = raceId ? { raceId } : undefined;
-
-    return lokiCollections.FACTIONS.find(searchFilter).map(faction => ({
-      key: `.${faction.id}`,
-      text: faction.name,
-      value: faction.id,
-    }));
-  }
-
-  function getSubclassOptions(classId) {
-    const searchFilter = classId ? { classId } : undefined;
-
-    return lokiCollections.SUBCLASSES.find(searchFilter).map(subclass => ({
-      key: `.${subclass.id}`,
-      text: subclass.name,
-      value: subclass.id,
-    }));
-  }
-
-  function handlePlayerNameChange(e, { value: playerName }) {
-    onChange({ playerName });
-  }
-
-  function handleCharacterNameChange(e, { value: name }) {
-    onChange({ name });
-  }
-
-  function handleRaceChange(e, { value: raceId }) {
-    onChange({ raceId, factionId: null });
-  }
-
-  function handleFactionChange(e, { value: factionId }) {
-    onChange({ factionId });
-  }
-
-  function handleClassChange(e, { value: classId }) {
-    onChange({ classId, subclassId: null });
-  }
-
-  function handleSubclassChange(e, { value: subclassId }) {
-    onChange({ subclassId });
-  }
-
-  function handleBonusChange(e, { value: bonusId }) {
-    onChange({ bonusId });
-  }
-
-
-  useEffect(() => {
-    const races = lokiCollections.RACES.find().map(race => ({
-      key: `.${race.id}`,
-      text: race.name,
-      value: race.id,
-    }));
-
-    const classes = lokiCollections.CLASSES.find().map(klass => ({
-      key: `.${klass.id}`,
-      text: klass.name,
-      value: klass.id,
-    }));
-
-    const bonuses = lokiCollections.BONUSES.find({ oneShot: character.oneShot }).map(bonus => ({
-      key: `.${bonus.id}`,
-      text: bonus.name,
-      value: bonus.id,
-    }));
-
-    setRaceOptions(races);
-    setFactionOptions(getFactionOptions(charRaceId));
-
-    setClassOptions(classes);
-    setSubclassOptions(getSubclassOptions(charClassId));
-
-    setBonusOptions(bonuses);
-  }, []);
-
-  useEffect(() => {
-    const {
+  const [{
+    newCharacter: {
+      oneShot,
+      bonusId,
       playerName,
       name,
       raceId,
       factionId,
       classId,
       subclassId,
-      bonusId,
-    } = character;
+    },
+  }, dispatch] = useGlobalStateValue();
 
-    setCharPlayerName(playerName);
-    setCharName(name);
 
-    setCharRaceId(raceId);
-    setCharClassId(classId);
-    setCharBonusId(bonusId);
+  function handlePlayerNameChange(e, { value: newPlayerName }) {
+    dispatch(updateNewCharacterPlayerName(newPlayerName));
+  }
 
-    if (raceId !== charRaceId) {
-      setFactionOptions(getFactionOptions(raceId));
-    }
+  function handleCharacterNameChange(e, { value: newName }) {
+    dispatch(updateNewCharacterName(newName));
+  }
 
-    if (classId !== charClassId) {
-      setSubclassOptions(getSubclassOptions(classId));
-    }
+  function handleRaceChange(e, { value: newRaceId }) {
+    dispatch(updateNewCharacterRaceId(newRaceId));
+  }
 
-    setCharSubclassId(subclassId);
-    setCharFactionId(factionId);
-  }, [character]);
+  function handleFactionChange(e, { value: newFactionId }) {
+    dispatch(updateNewCharacterFactionId(newFactionId));
+  }
+
+  function handleClassChange(e, { value: newClassId }) {
+    dispatch(updateNewCharacterClassId(newClassId));
+  }
+
+  function handleSubclassChange(e, { value: newSubclassId }) {
+    dispatch(updateNewCharacterSubclassId(newSubclassId));
+  }
+
+  function handleBonusChange(e, { value: newBonusId }) {
+    dispatch(updateNewCharacterBonusId(newBonusId));
+  }
 
 
   return (
@@ -163,8 +90,8 @@ export default function CharacterEditGeneral(props) {
               <Form.Input
                 label="Player Name"
                 placeholder="Player Name"
-                value={charPlayerName}
-                onChange={debounce(handlePlayerNameChange)}
+                value={playerName}
+                onChange={handlePlayerNameChange}
               />
             </Form.Group>
           </Grid.Column>
@@ -173,28 +100,30 @@ export default function CharacterEditGeneral(props) {
               <Form.Input
                 label="Character Name"
                 placeholder="Character Name"
-                value={charName}
-                onChange={debounce(handleCharacterNameChange)}
+                value={name}
+                onChange={handleCharacterNameChange}
               />
             </Form.Group>
           </Grid.Column>
           <Grid.Column>
             <Form.Group grouped>
               <Form.Field
-                control={Select}
+                control={DbSelect}
+                collectionName="races"
                 label="Race/Faction"
                 placeholder="Choose Race"
-                options={raceOptions}
                 onChange={handleRaceChange}
-                value={charRaceId}
+                value={raceId}
               />
               <Form.Field
-                control={Select}
+                control={DbSelect}
+                collectionName="factions"
+                joinKey="raceId"
+                joinValue={raceId}
                 placeholder="Choose Faction"
-                options={factionOptions}
                 onChange={handleFactionChange}
-                value={charFactionId}
-                disabled={!charRaceId}
+                value={factionId}
+                disabled={!raceId}
               />
             </Form.Group>
           </Grid.Column>
@@ -202,20 +131,22 @@ export default function CharacterEditGeneral(props) {
           <Grid.Column>
             <Form.Group grouped>
               <Form.Field
-                control={Select}
+                control={DbSelect}
+                collectionName="classes"
                 label="Class/Subclass"
                 placeholder="Choose Class"
-                options={classOptions}
                 onChange={handleClassChange}
-                value={charClassId}
+                value={classId}
               />
               <Form.Field
-                control={Select}
+                control={DbSelect}
+                collectionName="subclasses"
+                joinKey="classId"
+                joinValue={classId}
                 placeholder="Choose Subclass"
-                options={subclassOptions}
                 onChange={handleSubclassChange}
-                value={charSubclassId}
-                disabled={!charClassId}
+                value={subclassId}
+                disabled={!classId}
               />
             </Form.Group>
           </Grid.Column>
@@ -225,12 +156,14 @@ export default function CharacterEditGeneral(props) {
       <Form.Group>
         <Form.Field
           width={6}
-          control={Select}
+          control={DbSelect}
+          collectionName="bonuses"
+          joinKey="oneShot"
+          joinValue={oneShot}
           label="Bonus Choice"
           placeholder="Choose Bonus"
-          options={bonusOptions}
           onChange={handleBonusChange}
-          value={charBonusId}
+          value={bonusId}
         />
       </Form.Group>
     </Form>

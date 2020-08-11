@@ -80,7 +80,7 @@ export default function CharacterEditAttributes(props) {
       subclassId,
       bonusId,
     } = character;
-
+    console.log('[CharacterEditAttributes useEffect] character change: %o', character);
   }, [character]);
 
                 // <Form.Button icon="minus" onClick={() => changeAttrValue(attr.id, -1)} />
@@ -113,7 +113,7 @@ export default function CharacterEditAttributes(props) {
                     label={subattr.name}
                     type="number"
                     min={0}
-                    max={5}
+                    max={3}
                     value={subattrValues[subattr.id]}
                     onChange={(e, { value }) => handleSubattrChange(subattr.id, value)}
                   />

@@ -17,11 +17,19 @@ import {
 
 import { Page } from '../../../components/Page';
 
+import { useGlobalStateValue } from '../../../state-management';
+import { globalNewCharacterActions } from '../../../state-management/new-character';
+
 import CharacterEditGeneral from './components/CharacterEditGeneral';
 import CharacterEditEthnoIdentity from './components/CharacterEditEthnoIdentity';
 import CharacterEditAttributes from './components/CharacterEditAttributes';
 
 import './CharacterCreatePage.scss';
+
+
+const {
+  updateNewCharacterOneShot,
+} = globalNewCharacterActions;
 
 
 /**
@@ -34,13 +42,13 @@ export default function CharacterCreatePage(props) {
 
   const classes = classNames('CharacterCreatePage', className);
 
-  const raceOptions = [];
-  const factionOptions = [];
-
-  const [isOneShot, setIsOneShot] = useState(null);
   const [step, setStep] = useState(1);
+
+  const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
+  console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
+
   const [character, setCharacter] = useState({
-    oneShot: isOneShot,
+    oneShot,
     bonusId: null,
     playerName: '',
     name: '',
@@ -57,6 +65,8 @@ export default function CharacterCreatePage(props) {
     language3Id: null,
     languageCategory4Id: null,
     language4Id: null,
+    attributes: {},
+    subattributes: {},
     sex: null,
     sexuality: null,
     height: null,
@@ -97,7 +107,7 @@ export default function CharacterCreatePage(props) {
   }
 
   function handleOneShotChange(oneShotChoice) {
-    setIsOneShot(oneShotChoice);
+    dispatch(updateNewCharacterOneShot(oneShotChoice));
     setCharacter(char => ({ ...char, oneShot: oneShotChoice }));
   }
 
@@ -127,7 +137,7 @@ export default function CharacterCreatePage(props) {
 
   return (
     <Page className={classes} name="Create Character">
-      {isOneShot === null && (
+      {oneShot === null && (
         <Modal
           defaultOpen={true}
           size="mini"
@@ -195,7 +205,7 @@ export default function CharacterCreatePage(props) {
         </Grid.Row>
       </Grid>
 
-      {isOneShot !== null && renderStep()}
+      {oneShot !== null && renderStep()}
 
       {validateInfo() && (<Button type="submit">Save</Button>)}
     </Page>

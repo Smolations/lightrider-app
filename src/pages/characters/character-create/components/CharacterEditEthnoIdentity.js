@@ -9,9 +9,25 @@ import {
   Select,
 } from 'semantic-ui-react';
 
-import dbs, { lokiCollections } from '../../../../db';
+import { DbSelect } from '../../../../components/DbSelect';
+
+import { lokiCollections } from '../../../../db';
+
+import { useGlobalStateValue } from '../../../../state-management';
+import { globalNewCharacterActions } from '../../../../state-management/new-character';
 
 // import './CharacterEditEthnoIdentity.scss';
+
+
+const {
+  updateNewCharacterBonusId,
+  updateNewCharacterPlayerName,
+  updateNewCharacterName,
+  updateNewCharacterRaceId,
+  updateNewCharacterFactionId,
+  updateNewCharacterClassId,
+  updateNewCharacterSubclassId,
+} = globalNewCharacterActions;
 
 
 /**
@@ -189,6 +205,7 @@ export default function CharacterEditEthnoIdentity(props) {
                 options={language1Options}
                 onChange={handleLanguage1Change}
                 value={charLanguage1Id}
+                disabled={!charLanguageCategory1Id}
               />
             </Form.Group>
           </Grid.Column>
@@ -208,6 +225,7 @@ export default function CharacterEditEthnoIdentity(props) {
                 options={language2Options}
                 onChange={handleLanguage2Change}
                 value={charLanguage2Id}
+                disabled={!charLanguageCategory2Id}
               />
             </Form.Group>
           </Grid.Column>
@@ -228,6 +246,7 @@ export default function CharacterEditEthnoIdentity(props) {
                   options={language3Options}
                   onChange={handleLanguage3Change}
                   value={charLanguage3Id}
+                  disabled={!charLanguageCategory3Id}
                 />
               </Form.Group>
             </Grid.Column>
@@ -249,6 +268,7 @@ export default function CharacterEditEthnoIdentity(props) {
                   options={language4Options}
                   onChange={handleLanguage4Change}
                   value={charLanguage4Id}
+                  disabled={!charLanguageCategory4Id}
                 />
               </Form.Group>
             </Grid.Column>
