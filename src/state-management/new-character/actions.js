@@ -57,3 +57,24 @@ export function updateNewCharacterSubclassId(subclassId) {
   };
 }
 
+export function updateNewCharacterReligionId(religionId) {
+  return {
+    type: newCharacterConstants.UPDATE_RELIGION,
+    payload: religionId,
+  };
+}
+
+export function updateNewCharacterLanguageCategoryId(languageIndex, languageCategoryId) {
+  return {
+    type: newCharacterConstants.UPDATE_LANGUAGE_CATEGORY,
+    payload: [languageIndex, languageCategoryId],
+  };
+}
+
+export function updateNewCharacterLanguageId(languageIndex, languageId) {
+  return {
+    type: newCharacterConstants.UPDATE_LANGUAGE,
+    payload: [languageIndex, languageId],
+  };
+}
+
