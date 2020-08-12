@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, knowledgeCategoryId: 1, name: 'Circle Politics', description: 'The current political landscape of the Circle' },
   { id: 2, knowledgeCategoryId: 1, name: 'Circle Customs', description: 'The customs of the people in the Circle' },

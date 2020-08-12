@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, name: 'Scouting', description: 'Scouting is a character’s ability to understand and synthesise the landscape ahead.' },
   { id: 2, name: 'Space Combat', description: 'Space Combat is a character’s ability to operate effectively in space.' },

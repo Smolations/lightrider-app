@@ -21,6 +21,7 @@ import CharacterEditAttributes from './components/CharacterEditAttributes';
 
 import './CharacterCreatePage.scss';
 
+import { lokiCollections } from '../../../db';
 
 const {
   updateNewCharacterOneShot,
@@ -42,45 +43,8 @@ export default function CharacterCreatePage(props) {
   const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
   console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
 
-  const [character, setCharacter] = useState({
-    oneShot,
-    bonusId: null,
-    playerName: '',
-    name: '',
-    raceId: null,
-    factionId: null,
-    classId: null,
-    subclassId: null,
-    religionId: null,
-    languageCategory1Id: null,
-    language1Id: null,
-    languageCategory2Id: null,
-    language2Id: null,
-    languageCategory3Id: null,
-    language3Id: null,
-    languageCategory4Id: null,
-    language4Id: null,
-    attributes: {},
-    subattributes: {},
-    sex: null,
-    sexuality: null,
-    height: null,
-    heightUnits: null,
-    weight: null,
-    weightUnits: null,
-    hairColour: '',
-    hairStyle: '',
-    eyeColor: '',
-    ethnicity: '',
-    skinAbnormalities: '',
-    features: '',
-    facialHair: '',
-    glasses: '',
-    age: '',
-    dayJob: '',
-  });
-
-  console.log('[CharacterCreatePage] character: %o', character);
+  const records = lokiCollections.RACES.find();
+  console.log('[CharacterCreatePage] records: %o', records);
 
 
   function validateInfo() {
@@ -90,7 +54,6 @@ export default function CharacterCreatePage(props) {
 
   function handleOneShotChange(oneShotChoice) {
     dispatch(updateNewCharacterOneShot(oneShotChoice));
-    setCharacter(char => ({ ...char, oneShot: oneShotChoice }));
   }
 
 

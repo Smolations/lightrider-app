@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, languageCategoryId: 1, name: 'Russian', description: 'Circle language of Government' },
   { id: 2, languageCategoryId: 1, name: 'British', description: 'Circle language of the people' },

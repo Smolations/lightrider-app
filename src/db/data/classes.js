@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
  { id: 1, name: 'Armsman', description: 'An Armsman is a master of Mélée Weapons, Ranged Weapons, or both. An Armsman may carry one extra Weapon. In combat, an Armsman does not use up an action to switch loadouts. Additionally, Armsmen receive +1A when making Initiative rolls at the beginning of combat. An Armsman may take Shell, Medium, or Heavy Armour. An Armsman cannot cast Spells, nor use Contracts.' },
  { id: 2, name: 'Seeker', description: 'A Seeker is a proficient arms-user, but also possesses abilities beyond the natural. A Seeker has a Spell-Pool of 2 (see Casting), and may add 1 Skill-Point during Character Creation. A Seeker may take Shell, Medium, or Heavy Armour. A Seeker may not use Contracts.' },

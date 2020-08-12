@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, classId: 1, name: 'Soldier', description: 'A Soldier is a trained military combatant whose career is combat. Soldiers fire fast and hard. A Soldier may specialise in Mélée Weapons or Ranged Weapons. A Soldier receives +1 ACU when making attacks with that kind of Weapon. Making an attack as a Soldier does not end the turn.' },
   { id: 2, classId: 1, name: 'Duelist', description: 'A  Duelist is a specialist in light Weapons such as pistols and daggers. They move quickly across the battlefield to out-maneuver their opponents. A Duelist receives +1A to both ACU and DMG rolls when attacking with a Rank 1 or Rank 2 Weapon, and gains +1 Speed whenever he is dual-wielding. Additionally, a Duelist can always smuggle all equipped Weapons, even if unconscious.' },

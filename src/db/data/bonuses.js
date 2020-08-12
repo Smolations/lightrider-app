@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, name: '1 Attribute Point', oneShot: true },
   { id: 2, name: '2 Skill Points', oneShot: true },

@@ -1,3 +1,5 @@
+export const collectionOptions = { unique: ['id'] };
+
 export default [
   { id: 1, skillId: 1, name: 'Advantages', description: 'Advantages allows the character to seek ways in which to best use the environment in combat.' },
   { id: 2, skillId: 1, name: 'Mapping', description: 'Mapping allows the character to accurately predict the layout of the environment.' },
