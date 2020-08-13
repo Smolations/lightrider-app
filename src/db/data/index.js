@@ -1,3 +1,4 @@
+import characters from './characters';
 import races from './races';
 import factions from './factions';
 import religions from './religions';
@@ -17,33 +18,125 @@ import bonuses from './bonuses';
 
 import modifiers from './modifiers';
 import modifierProfiles from './modifier-profiles';
-import modifierValues from './modifier-values';
 
-
-const collections = {
-  RACES: { name: 'races', collectionOptions: {} },
-}
+// loki record prototypes
+import Character from '../../objects/character';
+import ModifierProfile from '../../objects/modifier-profile';
 
 
 export default {
-  RACES: races,
-  FACTIONS: factions,
-  RELIGIONS: religions,
-  LANGUAGE_CATEGORIES: languageCategories,
-  LANGUAGES: languages,
-  KNOWLEDGE_CATEGORIES: knowledgeCategories,
-  KNOWLEDGE: knowledge,
-  CONNECTION_CATEGORIES: connectionCategories,
-  CONNECTIONS: connections,
-  CLASSES: classes,
-  SUBCLASSES: subclasses,
-  ATTRIBUTES: attributes,
-  SUBATTRIBUTES: subattributes,
-  SKILLS: skills,
-  SUBSKILLS: subskills,
-  BONUSES: bonuses,
-
-  MODIFIERS: modifiers,
-  MODIFIER_PROFILES: modifierProfiles,
-  MODIFIER_VALUES: modifierValues,
+  CHARACTERS: {
+    name: 'characters',
+    collectionOptions: {},
+    dbOptions: { characters: { proto: Character } },
+    data: characters
+  },
+  RACES: {
+    name: 'races',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: races
+  },
+  FACTIONS: {
+    name: 'factions',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: factions,
+  },
+  RELIGIONS: {
+    name: 'religions',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: religions,
+  },
+  LANGUAGE_CATEGORIES: {
+    name: 'languageCategories',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: languageCategories,
+  },
+  LANGUAGES: {
+    name: 'languages',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: languages,
+  },
+  KNOWLEDGE_CATEGORIES: {
+    name: 'knowledgeCategories',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: knowledgeCategories,
+  },
+  KNOWLEDGE: {
+    name: 'knowledge',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: knowledge,
+  },
+  CONNECTION_CATEGORIES: {
+    name: 'connectionCategories',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: connectionCategories,
+  },
+  CONNECTIONS: {
+    name: 'connections',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: connections,
+  },
+  CLASSES: {
+    name: 'classes',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: classes,
+  },
+  SUBCLASSES: {
+    name: 'subclasses',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: subclasses,
+  },
+  ATTRIBUTES: {
+    name: 'attributes',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: attributes,
+  },
+  SUBATTRIBUTES: {
+    name: 'subattributes',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: subattributes,
+  },
+  SKILLS: {
+    name: 'skills',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: skills,
+  },
+  SUBSKILLS: {
+    name: 'subskills',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: subskills,
+  },
+  BONUSES: {
+    name: 'bonuses',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: bonuses,
+  },
+  MODIFIERS: {
+    name: 'modifiers',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: {},
+    data: modifiers,
+  },
+  MODIFIER_PROFILES: {
+    name: 'modifierProfiles',
+    collectionOptions: {},
+    dbOptions: { modifierProfiles: { proto: ModifierProfile } },
+    data: modifierProfiles,
+  },
 };

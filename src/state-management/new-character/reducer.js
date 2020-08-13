@@ -14,20 +14,18 @@ export default function newCharacterReducer(state, action) {
       break;
 
     case newCharacterConstants.UPDATE_BONUS: {
-      const languages = {};
+      const languages = { ...state.languages };
 
       // previous selection was "2 languages" and new selection differs
       // so we need to reset those languages
       if (state.bonusId === 3 && payload !== 3) {
-        languages.languageCategory3Id  = null;
-        languages.language3Id  = null;
-        languages.languageCategory4Id  = null;
-        languages.language4Id  = null;
+        delete languages[3];
+        delete languages[4];
       }
 
       newState = {
         ...state,
-        ...languages,
+        languages,
         bonusId: payload,
       };
     } break;
@@ -85,24 +83,47 @@ export default function newCharacterReducer(state, action) {
 
     case newCharacterConstants.UPDATE_LANGUAGE_CATEGORY: {
       const [languageIndex, languageCategoryId] = payload;
-      const languageSuffix = `${languageIndex}Id`;
+      const languages = { ...state.languages };
+
+      languages[languageIndex] = {
+        languageCategoryId,
+        languageId: null,
+      };
 
       newState = {
         ...state,
-        [`languageCategory${languageSuffix}`]: languageCategoryId,
-        [`language${languageSuffix}`]: null,
+        languages,
       };
     } break;
 
     case newCharacterConstants.UPDATE_LANGUAGE: {
       const [languageIndex, languageId] = payload;
-      const languageKey = `language${languageIndex}Id`;
+      const languages = { ...state.languages };
+
+      languages[languageIndex] = {
+        ...languages[languageIndex],
+        languageId,
+      };
 
       newState = {
         ...state,
-        [languageKey]: languageId,
+        languages,
       };
     } break;
+
+    case newCharacterConstants.UPDATE_ATTRIBUTES:
+      newState = {
+        ...state,
+        attributes: { ...state.attributes, ...payload },
+      };
+    break;
+
+    case newCharacterConstants.UPDATE_SUBATTRIBUTES:
+      newState = {
+        ...state,
+        subattributes: { ...state.subattributes, ...payload },
+      };
+    break;
 
     default:
       newState = state;

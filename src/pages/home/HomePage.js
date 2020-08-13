@@ -4,6 +4,10 @@ import React from 'react';
 
 import { Page } from '../../components/Page';
 
+// import { lokiCollections } from '../../db';
+import Character from '../../objects/character';
+import ModifierProfile from '../../objects/modifier-profile';
+
 
 import './HomePage.scss';
 
@@ -17,6 +21,27 @@ export default function HomePage(props) {
   } = props;
 
   const classes = classNames('HomePage', className);
+
+  const profile = new ModifierProfile({ name: 'starting attributes' });
+  profile
+    .addValue(1, 1)
+    .addValue(1, 1)
+    .addValue(3, 3)
+    .save()
+    .addValue(5, 4)
+    .save()
+
+  const character = new Character({
+    name: 'smola',
+    raceId: 1,
+    languages: { 1: { languageCategoryId: 1, languageId: 2 } },
+  });
+
+  console.groupCollapsed('[HomePage]');
+  console.log('profile: %o', profile)
+  console.log('values: %o', profile.values)
+  console.log('inflated character: %o', character.inflated)
+  console.groupEnd();
 
 
   return (

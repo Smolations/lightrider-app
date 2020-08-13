@@ -1,5 +1,3 @@
-export const collectionOptions = {};
-
 export default [
   // {
   //   id: 1,

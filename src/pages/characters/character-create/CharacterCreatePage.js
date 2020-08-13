@@ -21,7 +21,7 @@ import CharacterEditAttributes from './components/CharacterEditAttributes';
 
 import './CharacterCreatePage.scss';
 
-import { lokiCollections } from '../../../db';
+// import { lokiCollections } from '../../../db';
 
 const {
   updateNewCharacterOneShot,
@@ -42,9 +42,6 @@ export default function CharacterCreatePage(props) {
 
   const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
   console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
-
-  const records = lokiCollections.RACES.find();
-  console.log('[CharacterCreatePage] records: %o', records);
 
 
   function validateInfo() {

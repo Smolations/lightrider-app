@@ -1,5 +1,3 @@
-export const collectionOptions = { unique: ['id'] };
-
 export default [
   // Strength
   {

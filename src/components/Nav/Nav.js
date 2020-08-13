@@ -4,7 +4,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Container,
-  Dropdown,
   Image,
   Menu,
 } from 'semantic-ui-react';

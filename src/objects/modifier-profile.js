@@ -1,13 +1,15 @@
-import uniqueId from 'lodash/uniqueId';
-
-import dbs from '../db';
-
-const _modifierProfilesCollection = Symbol('modifierProfilesCollection');
-const _modifiersCollection = Symbol('modifiersCollection');
+import { lokiCollections } from '../db';
 
 
 export default class ModifierProfile {
-  // get modifierTotals() {}
+  get values() {
+    return this.modifierValues.map((modifierValue) => {
+      const modifier = lokiCollections.MODIFIERS.findOne({ id: modifierValue.modifierId });
+      const { $loki, meta, id, ...modifierRest } = modifier;
+
+      return { ...modifierValue, ...modifierRest };
+    });
+  }
 
 
   constructor(options) {
@@ -17,15 +19,10 @@ export default class ModifierProfile {
 
     this.name = options.name;
     this.modifierValues = options.modifierValues || [];
-
-    this[_modifierProfilesCollection] = dbs.MODIFIER_PROFILES;
-    this[_modifiersCollection] = dbs.MODIFIERS;
   }
 
-  // toJSON() {}
-
   addValue(modifierId, value) {
-    const modifier = this[_modifiersCollection].find({ id: modifierId });
+    const modifier = lokiCollections.MODIFIERS.find({ id: modifierId });
 
     if (!modifier) {
       throw new Error(`Unable to find modifier with id: ${modifierId}`);
@@ -38,9 +35,10 @@ export default class ModifierProfile {
 
     const existingModifierValue = this.modifierValues.find(modVal => modVal.modifierId === modifierId);
 
+    this.modifierValues = this.modifierValues.slice();
+
     if (existingModifierValue) {
       existingModifierValue.value += value;
-      this.modifierValues = this.modifierValues.slice();
     } else {
       this.modifierValues.push(modifierValue);
     }
@@ -49,10 +47,10 @@ export default class ModifierProfile {
   }
 
   save() {
-    // const action = this.$loki ? 'update' : 'insert';
+    const action = this.$loki ? 'update' : 'insert';
 
-    // this[_modifierProfile] = this.modifierProfilesCollection[action](this[_modifierProfile]);
+    lokiCollections.MODIFIER_PROFILES[action](this);
 
-    // return this[_modifierProfile];
+    return this;
   }
 }

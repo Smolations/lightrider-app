@@ -78,3 +78,17 @@ export function updateNewCharacterLanguageId(languageIndex, languageId) {
   };
 }
 
+export function updateNewCharacterAttributes(attributes) {
+  return {
+    type: newCharacterConstants.UPDATE_ATTRIBUTES,
+    payload: attributes,
+  };
+}
+
+export function updateNewCharacterSubattributes(subattributes) {
+  return {
+    type: newCharacterConstants.UPDATE_SUBATTRIBUTES,
+    payload: subattributes,
+  };
+}
+

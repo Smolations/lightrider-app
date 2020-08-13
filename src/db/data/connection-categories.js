@@ -1,5 +1,3 @@
-export const collectionOptions = { unique: ['id'] };
-
 export default [
   { id: 1, name: 'Circle', description: '' },
   { id: 2, name: 'Thurelian', description: '' },

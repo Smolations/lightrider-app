@@ -23,7 +23,7 @@ export default function ReferenceCategory(props) {
 
   return (
     <section className={classes}>
-      {categoryDb && categoryDb().map(category => (
+      {categoryDb && categoryDb.find().map(category => (
         <article className="ReferenceCategory--category" key={`.${category.id}`}>
           <Header as="h2" className="ReferenceCategory--header">{category.name}</Header>
           {subcategoryDb && (
@@ -36,7 +36,7 @@ export default function ReferenceCategory(props) {
               </Table.Header>
 
               <Table.Body>
-                {subcategoryDb({ [joinKey]: category.id }).map(subcategory => (
+                {subcategoryDb.find({ [joinKey]: category.id }).map(subcategory => (
                   <Table.Row key={`.${subcategory.id}`}>
                     <Table.Cell>{subcategory.name}</Table.Cell>
                     <Table.Cell>{subcategory.description}</Table.Cell>

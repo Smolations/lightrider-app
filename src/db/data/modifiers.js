@@ -1,5 +1,3 @@
-export const collectionOptions = { unique: ['id'] };
-
 // currencies are groups of modifiers?
 //   - i.e. the number of modifiers to be expended?
 // modifiers should be incrementable by 1

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {
@@ -8,6 +9,15 @@ import {
 } from 'semantic-ui-react';
 
 import { lokiCollections } from '../../../../db';
+
+import { useGlobalStateValue } from '../../../../state-management';
+import { globalNewCharacterActions } from '../../../../state-management/new-character';
+
+
+const {
+  updateNewCharacterAttributes,
+  updateNewCharacterSubattributes,
+} = globalNewCharacterActions;
 
 // import './CharacterEditAttributes.scss';
 
@@ -20,50 +30,68 @@ export default function CharacterEditAttributes(props) {
     className,
   } = props;
 
+  const attributeNeutralValue = 5;
+
   const classes = classNames('CharacterEditAttributes', className);
 
+  const [{
+    newCharacter,
+    newCharacter: {
+      attributes,
+      subattributes,
+    },
+  }, dispatch] = useGlobalStateValue();
+  console.log('[CharacterEditAttributes] newCharacter: %o', newCharacter);
+
   const [attrs, setAttrs] = useState([]);
-  const [attrValues, setAttrValues] = useState({});
-  const [subattrValues, setSubattrValues] = useState({});
   console.log('[CharacterEditAttributes] attrs: %o', attrs);
-  console.log('[CharacterEditAttributes] attrValues: %o', attrValues);
-  console.log('[CharacterEditAttributes] subattrValues: %o', subattrValues);
 
 
   function handleAttrChange(attrId, value) {
-    setAttrValues({ ...attrValues, [attrId]: value });
-    // onChange({ playerName });
+    const attrValue = Number(value);
+    const neutralOffset = attrValue - attributeNeutralValue;
+    const wentDownToNeutral = neutralOffset === 0 && attributes[attrId] > attributeNeutralValue;
+
+    if (neutralOffset <= 0 && !wentDownToNeutral) {
+      const attribute = attrs.find((attr) => attr.id === attrId);
+      const subattrValues = attribute.subattributes.reduce((result, subattr) => {
+        return { ...result, [subattr.id]: neutralOffset };
+      }, {});
+
+      dispatch(updateNewCharacterSubattributes(subattrValues));
+    }
+
+    dispatch(updateNewCharacterAttributes({ [attrId]: attrValue }));
   }
 
   function handleSubattrChange(subattrId, value) {
-    setSubattrValues({ ...subattrValues, [subattrId]: value });
-    // onChange({ playerName });
+    const subattrValue = Number(value);
+    dispatch(updateNewCharacterSubattributes({ [subattrId]: subattrValue }));
   }
 
 
   useEffect(() => {
-    const attributes = lokiCollections.ATTRIBUTES.find().map(attribute => ({
+    const attrsAndSubattrs = lokiCollections.ATTRIBUTES.find().map(attribute => ({
       ...attribute,
       subattributes: lokiCollections.SUBATTRIBUTES.find({ attributeId: attribute.id }),
     }));
     const attributeValues = {};
     const subattributeValues = {};
 
-    attributes.forEach((attr) => {
-      attributeValues[attr.id] = 5;
+    attrsAndSubattrs.forEach((attr) => {
+      attributeValues[attr.id] = attributeNeutralValue;
 
       attr.subattributes.forEach((subattr) => {
         subattributeValues[subattr.id] = 0;
       });
     });
 
-    setAttrs(attributes);
-    setAttrValues(attributeValues);
-    setSubattrValues(subattributeValues);
-  }, []);
+    setAttrs(attrsAndSubattrs);
 
-                // <Form.Button icon="minus" onClick={() => changeAttrValue(attr.id, -1)} />
-                // <Form.Button icon="plus" onClick={() => changeAttrValue(attr.id, 1)} />
+    isEmpty(attributes) && dispatch(updateNewCharacterAttributes(attributeValues));
+    isEmpty(subattributes) && dispatch(updateNewCharacterSubattributes(subattributeValues));
+  }, [attributes, subattributes, dispatch]);
+
 
   return (
     <Form className={classes} size="huge">
@@ -79,7 +107,7 @@ export default function CharacterEditAttributes(props) {
                   type="number"
                   min={3}
                   max={8}
-                  value={attrValues[attr.id]}
+                  value={attributes[attr.id]}
                   onChange={(e, { value }) => handleAttrChange(attr.id, value)}
                 />
               </Form.Group>
@@ -93,8 +121,9 @@ export default function CharacterEditAttributes(props) {
                     type="number"
                     min={0}
                     max={3}
-                    value={subattrValues[subattr.id]}
+                    value={subattributes[subattr.id]}
                     onChange={(e, { value }) => handleSubattrChange(subattr.id, value)}
+                    readOnly={subattributes[subattr.id] < 0}
                   />
                 ))}
               </Form.Group>

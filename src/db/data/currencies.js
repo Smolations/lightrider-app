@@ -1,5 +1,3 @@
-export const collectionOptions = { unique: ['id'] };
-
 export default [
   { id: 1, name: 'Attribute Points', description: 'Attribute points are important, teehee' },
   { id: 2, name: 'Sub-Attribute Points', description: 'subAttribute points are important, teehee' },

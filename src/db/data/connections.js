@@ -1,5 +1,3 @@
-export const collectionOptions = { unique: ['id'] };
-
 export default [
   { id: 1, connectionCategoryId: 1, name: 'Royal Guard', description: 'The personal legion of the Russian King' },
   { id: 2, connectionCategoryId: 1, name: 'White Ministry', description: 'The ministry that governs all interstellar affairs in the Circle' },
