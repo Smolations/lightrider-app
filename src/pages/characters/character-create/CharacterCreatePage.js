@@ -38,10 +38,46 @@ export default function CharacterCreatePage(props) {
 
   const classes = classNames('CharacterCreatePage', className);
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
 
   const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
   console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
+
+  const stepConfigs = [
+    {
+      icon: 'birthday cake',
+      title: 'General',
+      content: (<CharacterEditGeneral onValidated={isValid => {}} />),
+    },
+    {
+      icon: 'dna',
+      title: (<React.Fragment>Ethno&ndash;Identity</React.Fragment>),
+      content: (<CharacterEditEthnoIdentity onValidated={isValid => {}} />),
+    },
+    {
+      icon: 'heartbeat',
+      title: 'Attributes',
+      content: (<CharacterEditAttributes onValidated={isValid => {}} />),
+    },
+    {
+      icon: 'magic',
+      title: 'Skills',
+      content: (null),
+    },
+    {
+      icon: 'book',
+      title: 'Knowledge',
+      content: (null),
+    },
+  ];
+
+  if (!oneShot) {
+    stepConfigs.push({
+      icon: 'handshake',
+      title: 'Connections',
+      content: (null),
+    });
+  }
 
 
   function validateInfo() {
@@ -51,23 +87,6 @@ export default function CharacterCreatePage(props) {
 
   function handleOneShotChange(oneShotChoice) {
     dispatch(updateNewCharacterOneShot(oneShotChoice));
-  }
-
-
-  function renderStep() {
-    const steps = [
-      <CharacterEditGeneral
-        onValidated={isValid => {}}
-      />,
-      <CharacterEditEthnoIdentity
-        onValidated={isValid => {}}
-      />,
-      <CharacterEditAttributes
-        onValidated={isValid => {}}
-      />,
-    ];
-
-    return steps[step - 1];
   }
 
 
@@ -87,53 +106,20 @@ export default function CharacterCreatePage(props) {
       )}
 
       <Step.Group size="mini" fluid>
-        <Step active={step === 1} onClick={()  => setStep(1)}>
-          <Icon name="birthday cake" />
-          <Step.Content>
-            <Step.Title>General</Step.Title>
-          </Step.Content>
-        </Step>
-
-        <Step active={step === 2} onClick={()  => setStep(2)}>
-          <Icon name="dna" />
-          <Step.Content>
-            <Step.Title>Ethno&ndash;Identity</Step.Title>
-          </Step.Content>
-        </Step>
-
-        <Step active={step === 3} onClick={()  => setStep(3)}>
-          <Icon name="heartbeat" />
-          <Step.Content>
-            <Step.Title>Attributes</Step.Title>
-          </Step.Content>
-        </Step>
-
-        <Step active={step === 4} onClick={()  => setStep(4)}>
-          <Icon name="magic" />
-          <Step.Content>
-            <Step.Title>Skills</Step.Title>
-          </Step.Content>
-        </Step>
-
-        <Step active={step === 5} onClick={()  => setStep(5)}>
-          <Icon name='book' />
-          <Step.Content>
-            <Step.Title>Knowledge</Step.Title>
-          </Step.Content>
-        </Step>
-
-        <Step active={step === 6} onClick={()  => setStep(6)}>
-          <Icon name='handshake' />
-          <Step.Content>
-            <Step.Title>Connections</Step.Title>
-          </Step.Content>
-        </Step>
+        {stepConfigs.map((stepConfig, configNdx) => (
+          <Step active={step === configNdx} onClick={()  => setStep(configNdx)}>
+            <Icon name={stepConfig.icon} />
+            <Step.Content>
+              <Step.Title>{stepConfig.title}</Step.Title>
+            </Step.Content>
+          </Step>
+        ))}
       </Step.Group>
 
       <Grid>
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={13}>
-            <Progress color="teal" percent={44} progress />
+            <Progress color="teal" percent={24} progress />
           </Grid.Column>
           <Grid.Column width={3}>
             <Button>Save Character</Button>
@@ -141,7 +127,7 @@ export default function CharacterCreatePage(props) {
         </Grid.Row>
       </Grid>
 
-      {oneShot !== null && renderStep()}
+      {oneShot !== null && stepConfigs[step].content}
 
       {validateInfo() && (<Button type="submit">Save</Button>)}
     </Page>
