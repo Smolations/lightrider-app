@@ -2,7 +2,11 @@ import classNames from 'classnames';
 import startCase from 'lodash/startCase';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Dropdown } from 'semantic-ui-react';
+import {
+  Dropdown,
+  Header,
+  List,
+} from 'semantic-ui-react';
 
 import { lokiCollections } from '../../db';
 
@@ -61,6 +65,20 @@ export default function ReferencePage(props) {
 
   return (
     <Page className={classes} name="Reference">
+      <Header as="h2">Links</Header>
+      <List>
+        <List.Item>
+          <a
+            href="https://docs.google.com/document/d/1DkEC8W2ejXA0fs9NXMclNYGw0LDlzScCvanyHz594LA/edit#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Lightrider, Fifth Edition Ruleset
+          </a>
+        </List.Item>
+      </List>
+
+      <Header as="h2">Reference Categories</Header>
       <Dropdown
         placeholder="Select Topic"
         options={categoryOpts}
