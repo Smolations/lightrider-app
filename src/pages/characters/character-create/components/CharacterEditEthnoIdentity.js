@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import reduce from 'lodash/reduce';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -95,6 +96,7 @@ export default function CharacterEditEthnoIdentity(props) {
                     onChange={(e, data) => handleLanguageChange(languageIndex, data)}
                     value={languages[languageIndex]?.languageId}
                     disabled={!languages[languageIndex]?.languageCategoryId}
+                    disabledFilter={language => language.name.includes('rit')}
                   />
                 </Form.Group>
               </Grid.Column>
