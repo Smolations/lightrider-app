@@ -1,44 +1,46 @@
+import attributes from './attributes';
+import bonuses from './bonuses';
 import characters from './characters';
-import races from './races';
-import factions from './factions';
-import religions from './religions';
-import languageCategories from './language-categories';
-import languages from './languages';
-import knowledgeCategories from './knowledge-categories';
-import knowledge from './knowledge';
+import classes from './classes';
 import connectionCategories from './connection-categories';
 import connections from './connections';
-import classes from './classes';
-import subclasses from './subclasses';
-import attributes from './attributes';
-import subattributes from './subattributes';
-import skills from './skills';
-import subskills from './subskills';
-import bonuses from './bonuses';
-
-import modifiers from './modifiers';
+import factions from './factions';
+import knowledge from './knowledge';
+import knowledgeCategories from './knowledge-categories';
+import languageCategories from './language-categories';
+import languages from './languages';
 import modifierProfiles from './modifier-profiles';
+import modifiers from './modifiers';
+import races from './races';
+import religions from './religions';
+import skills from './skills';
+import subattributes from './subattributes';
+import subclasses from './subclasses';
+import subskills from './subskills';
+
 
 // loki record prototypes
-import Attribute from '../../models/attribute';
-import Bonus from '../../models/bonus';
-import Character from '../../models/character';
-import Class from '../../models/class';
-import Connection from '../../models/connection';
-import ConnectionCategory from '../../models/connection-category';
-import Faction from '../../models/faction';
-import Knowledge from '../../models/knowledge';
-import KnowledgeCategory from '../../models/knowledge-category';
-import Language from '../../models/language';
-import LanguageCategory from '../../models/language-category';
-import Modifier from '../../models/modifier';
-import ModifierProfile from '../../models/modifier-profile';
-import Race from '../../models/race';
-import Religion from '../../models/religion';
-import Skill from '../../models/skill';
-import Subattribute from '../../models/subattribute';
-import Subclass from '../../models/subclass';
-import Subskill from '../../models/subskill';
+import {
+  Attribute,
+  Bonus,
+  Character,
+  Class,
+  Connection,
+  ConnectionCategory,
+  Faction,
+  Knowledge,
+  KnowledgeCategory,
+  Language,
+  LanguageCategory,
+  Modifier,
+  ModifierProfile,
+  Race,
+  Religion,
+  Skill,
+  Subattribute,
+  Subclass,
+  Subskill,
+} from '../../models';
 
 
 export default {
