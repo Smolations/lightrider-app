@@ -1,6 +1,7 @@
 import omit from 'lodash/omit';
 
 import { lokiCollections } from '../db';
+import Collectionable from '../mixins/collectionable';
 
 const _inflatedLanguages = Symbol('inflatedLanguages');
 const _initialSubattributes = Symbol('initialSubattributes');
@@ -12,7 +13,7 @@ function stripLoki(record) {
 }
 
 
-export default class Character {
+export default class Character extends Collectionable() {
   get [_initialAttributes]() {
     return lokiCollections.ATTRIBUTES.find().reduce((result, attribute) => {
       return { ...result, [attribute.id]: 5 };
@@ -41,44 +42,10 @@ export default class Character {
     return inflatedLanguages;
   }
 
-  get inflated() {
-    const foreignKeyCollectionMap = {
-      bonusId: 'BONUSES',
-      raceId: 'RACES',
-      factionId: 'FACTIONS',
-      classId: 'CLASSES',
-      subclassId: 'SUBCLASSES',
-      religionId: 'RELIGIONS',
-    };
-
-    const foreignKeys = Object.keys(foreignKeyCollectionMap);
-    const inflatedObject = omit(this, [...foreignKeys, 'languages']);
-
-    const foreignKeyed = foreignKeys.reduce((result, foreignKey) => {
-      const ownPropertyId = this[foreignKey]; // need to know if a record has been associated
-      const inflatedKey = foreignKey.slice(0, -2); // kill 'Id' suffix
-
-      // retrieve record or leave property value as-is
-      const record = ownPropertyId
-        ? lokiCollections[foreignKeyCollectionMap[foreignKey]].findOne({ id: ownPropertyId })
-        : ownPropertyId;
-
-      let inflatedValue = ownPropertyId;
-
-      if (record) {
-        inflatedValue = stripLoki(record);
-      }
-
-      return { ...result, [inflatedKey]: inflatedValue };
-    }, {});
-
-    foreignKeyed.languages = this[_inflatedLanguages];
-
-    return { ...foreignKeyed, ...inflatedObject };
-  }
-
 
   constructor(options) {
+    super({ collectionKey: 'CHARACTERS' });
+
     this.oneShot = options.oneShot || null;
     this.bonusId = options.bonusId || null;
     this.playerName = options.playerName || '';
@@ -115,11 +82,39 @@ export default class Character {
     return this;
   }
 
-  save() {
-    const action = this.$loki ? 'update' : 'insert';
+  getInflated() {
+    const foreignKeyCollectionMap = {
+      bonusId: 'BONUSES',
+      raceId: 'RACES',
+      factionId: 'FACTIONS',
+      classId: 'CLASSES',
+      subclassId: 'SUBCLASSES',
+      religionId: 'RELIGIONS',
+    };
 
-    lokiCollections.CHARACTERS[action](this);
+    const foreignKeys = Object.keys(foreignKeyCollectionMap);
+    const inflatedObject = omit(this, [...foreignKeys, 'languages']);
 
-    return this;
+    const foreignKeyed = foreignKeys.reduce((result, foreignKey) => {
+      const ownPropertyId = this[foreignKey]; // need to know if a record has been associated
+      const inflatedKey = foreignKey.slice(0, -2); // kill 'Id' suffix
+
+      // retrieve record or leave property value as-is
+      const record = ownPropertyId
+        ? lokiCollections[foreignKeyCollectionMap[foreignKey]].findOne({ id: ownPropertyId })
+        : ownPropertyId;
+
+      let inflatedValue = ownPropertyId;
+
+      if (record) {
+        inflatedValue = stripLoki(record);
+      }
+
+      return { ...result, [inflatedKey]: inflatedValue };
+    }, {});
+
+    foreignKeyed.languages = this[_inflatedLanguages];
+
+    return { ...foreignKeyed, ...inflatedObject };
   }
 }

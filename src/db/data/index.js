@@ -20,8 +20,8 @@ import modifiers from './modifiers';
 import modifierProfiles from './modifier-profiles';
 
 // loki record prototypes
-import Character from '../../objects/character';
-import ModifierProfile from '../../objects/modifier-profile';
+import Character from '../../models/character';
+import ModifierProfile from '../../models/modifier-profile';
 
 
 export default {

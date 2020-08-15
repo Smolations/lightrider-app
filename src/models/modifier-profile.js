@@ -1,7 +1,8 @@
 import { lokiCollections } from '../db';
+import Collectionable from '../mixins/collectionable';
 
 
-export default class ModifierProfile {
+export default class ModifierProfile extends Collectionable() {
   get values() {
     return this.modifierValues.map((modifierValue) => {
       const modifier = lokiCollections.MODIFIERS.findOne({ id: modifierValue.modifierId });
@@ -16,6 +17,8 @@ export default class ModifierProfile {
     if (!options.name) {
       throw new Error('Name is required!');
     }
+
+    super({ collectionKey: 'MODIFIER_PROFILES' });
 
     this.name = options.name;
     this.modifierValues = options.modifierValues || [];
@@ -42,14 +45,6 @@ export default class ModifierProfile {
     } else {
       this.modifierValues.push(modifierValue);
     }
-
-    return this;
-  }
-
-  save() {
-    const action = this.$loki ? 'update' : 'insert';
-
-    lokiCollections.MODIFIER_PROFILES[action](this);
 
     return this;
   }
