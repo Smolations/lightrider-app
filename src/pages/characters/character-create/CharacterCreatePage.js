@@ -107,7 +107,7 @@ export default function CharacterCreatePage(props) {
 
       <Step.Group size="mini" fluid>
         {stepConfigs.map((stepConfig, configNdx) => (
-          <Step active={step === configNdx} onClick={()  => setStep(configNdx)}>
+          <Step key={stepConfig.title} active={step === configNdx} onClick={()  => setStep(configNdx)}>
             <Icon name={stepConfig.icon} />
             <Step.Content>
               <Step.Title>{stepConfig.title}</Step.Title>

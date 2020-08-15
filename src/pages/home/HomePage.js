@@ -5,8 +5,8 @@ import React from 'react';
 import { Page } from '../../components/Page';
 
 // import { lokiCollections } from '../../db';
-import Character from '../../objects/character';
-import ModifierProfile from '../../objects/modifier-profile';
+import Character from '../../models/character';
+import ModifierProfile from '../../models/modifier-profile';
 
 
 import './HomePage.scss';
@@ -37,10 +37,11 @@ export default function HomePage(props) {
     languages: { 1: { languageCategoryId: 1, languageId: 2 } },
   });
 
+
   console.groupCollapsed('[HomePage]');
   console.log('profile: %o', profile)
   console.log('values: %o', profile.values)
-  console.log('inflated character: %o', character.inflated)
+  console.log('inflated character: %o', character.getInflated())
   console.groupEnd();
 
 
