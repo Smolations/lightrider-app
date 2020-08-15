@@ -22,6 +22,8 @@ export default function DbSelect(props) {
   const {
     className,
     collectionName,
+    disabledFilter,
+    filter,
     joinKey,
     joinValue,
     valueKey,
@@ -48,10 +50,14 @@ export default function DbSelect(props) {
       searchCriteria = { [joinKey]: joinValue };
     }
 
-    return collection.find(searchCriteria).map(result => ({
+    const results = collection.find(searchCriteria).filter(filter);
+    const mapDisabled = results.map((result, ndx) => !!disabledFilter(result, ndx));
+
+    return results.map((result, ndx) => ({
       key: `.${result.id}`,
       text: result.name,
       value: result[valueKey],
+      disabled: mapDisabled[ndx],
     }));
   }, [
     collectionName,
@@ -79,6 +85,20 @@ DbSelect.propTypes = {
   collectionName: PropTypes.string.isRequired,
 
   /**
+   *  If any dropdown options need to be disabled by arbitrary criteria,
+   *  a function can be provided here. Any truthy value will disable the
+   *  record in the list. Its signature is `(record, index)`.
+   */
+  filter: PropTypes.func,
+
+  /**
+   *  If the dropdown options need to be filtered by arbitrary criteria,
+   *  a function can be provided here. Any falsy value will remove the
+   *  record from the list. Its signature is `(record, index)`.
+   */
+  filter: PropTypes.func,
+
+  /**
    *  To search the collection while matching on a key, provide the key
    *  name here (e.g. 'classId'), and the raw value in `joinValue` (e.g. `2`).
    */
@@ -102,5 +122,7 @@ DbSelect.propTypes = {
 };
 
 DbSelect.defaultProps = {
+  disabledFilter: () => false,
+  filter: () => true,
   valueKey: 'id',
 };

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import reduce from 'lodash/reduce';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -37,6 +38,18 @@ export default function CharacterEditEthnoIdentity(props) {
 
   const languageLabels = ['First Language', 'Second Language'];
 
+  const usedLanguagesMap = reduce(languages, (result, languageSpec, languageIndex) => {
+    const newResult = { ...result };
+
+    newResult[languageSpec.languageCategoryId] = newResult[languageSpec.languageCategoryId] || [];
+
+    if (languageSpec.languageId) {
+      newResult[languageSpec.languageCategoryId].push(languageSpec.languageId);
+    }
+
+    return newResult;
+  }, {});
+
 
   if (bonusId === 3) {
     languageLabels.push('Third Language', 'Fourth Language');
@@ -74,6 +87,8 @@ export default function CharacterEditEthnoIdentity(props) {
         <Grid.Row>
           {languageLabels.map((label, ndx) => {
             const languageIndex = ndx + 1; // 0-based to 1-based
+            const currentLanguageCategoryId = languages[languageIndex]?.languageCategoryId;
+            const currentLanguageId = languages[languageIndex]?.languageId;
 
             return (
               <Grid.Column key={label}>
@@ -84,17 +99,18 @@ export default function CharacterEditEthnoIdentity(props) {
                     collectionName="language_categories"
                     placeholder="Choose Origin"
                     onChange={(e, data) => handleLanguageCategoryChange(languageIndex, data)}
-                    value={languages[languageIndex]?.languageCategoryId}
+                    value={currentLanguageCategoryId}
                   />
                   <Form.Field
                     control={DbSelect}
                     collectionName="languages"
                     joinKey="languageCategoryId"
-                    joinValue={languages[languageIndex]?.languageCategoryId}
+                    joinValue={currentLanguageCategoryId}
                     placeholder="Choose Language"
                     onChange={(e, data) => handleLanguageChange(languageIndex, data)}
-                    value={languages[languageIndex]?.languageId}
-                    disabled={!languages[languageIndex]?.languageCategoryId}
+                    value={currentLanguageId}
+                    disabled={!currentLanguageCategoryId}
+                    disabledFilter={language => !currentLanguageId && usedLanguagesMap[currentLanguageCategoryId]?.includes(language.id)}
                   />
                 </Form.Group>
               </Grid.Column>
@@ -111,7 +127,4 @@ CharacterEditEthnoIdentity.displayName = 'CharacterEditEthnoIdentity';
 
 CharacterEditEthnoIdentity.propTypes = {
   children: PropTypes.node,
-};
-
-CharacterEditEthnoIdentity.defaultProps = {
 };
