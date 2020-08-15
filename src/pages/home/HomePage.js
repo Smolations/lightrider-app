@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Page } from '../../components/Page';
 
-import { lokiCollections } from '../../db';
+// import { lokiCollections } from '../../db';
 import Character from '../../models/character';
 import ModifierProfile from '../../models/modifier-profile';
 
@@ -38,19 +38,10 @@ export default function HomePage(props) {
   });
 
 
-  // character.save();
-
-  // const savedChar = lokiCollections.CHARACTERS.findOne({ $loki: character.$loki });
-
   console.groupCollapsed('[HomePage]');
   console.log('profile: %o', profile)
   console.log('values: %o', profile.values)
   console.log('inflated character: %o', character.getInflated())
-
-  // for (let prop in character) {
-  //   console.log('enumerable: %o', prop)
-  // }
-  // console.log('saved character: %o', savedChar)
   console.groupEnd();
 
 

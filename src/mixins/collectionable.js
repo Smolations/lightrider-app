@@ -3,32 +3,30 @@ import { lokiCollections } from '../db';
 const _collection = Symbol('collection');
 
 /**
- *  Meant to be used when a model wraps a JSON object/POJO. Allows for adding
- *  convenience/helper methods to the object without modifying the object itself.
+ *  Meant to be used as an object wrapper around a loki collection record.
  *
  *  @mixin
  *  @name module:lightrider/mixins~Collectionable
  *  @param {*} SuperClass=class{} The class to mix onto.
  *  @returns {Collectionable} The mixed class.
  *
- *  @requires lightrider/mixins~Proxyable
  *  @see Collectionable
  */
 const Collectionable = (SuperClass = class {}) =>
 
 /**
- *  Meant to be used when a model wraps a JSON object/POJO. Allows for adding
- *  convenience/helper methods to the object without modifying the object itself.
+ *  Meant to be used as an object wrapper around a loki collection record.
  *
  *  @class
  *  @alias Collectionable
- *  @extends Proxyable
  *
  *  @param {object} options
- *  @param {object} options.json={} The JSON object to wrap.
+ *  @param {object} options.collectionKey The key of `lokiCollections` object which matches
+ *                                        the desired collection to integrate.
  *
  *  @see module:lightrider/mixins~Collectionable
- *  @throws {TypeError} If `options.json` is not a valid object.
+ *  @throws {TypeError} If `options.collectionKey` is not present.
+ *  @throws {Error}     If `options.collectionKey` does not result in a loki collection reference.
  */
 class extends SuperClass {
   constructor({ collectionKey, ...superOpts } = {}) {
