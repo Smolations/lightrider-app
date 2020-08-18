@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -10,6 +10,11 @@ import {
   Progress,
   Step,
 } from 'semantic-ui-react';
+import {
+  useQueryParam,
+  NumberParam,
+} from 'use-query-params';
+
 
 import { Page } from '../../../components/Page';
 
@@ -39,7 +44,7 @@ export default function CharacterCreatePage(props) {
 
   const classes = classNames('CharacterCreatePage', className);
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useQueryParam('step', NumberParam);
   const [showOneShotConfirmation, setShowOneShotConfirmation] = useState(false);
 
   const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
@@ -88,7 +93,6 @@ export default function CharacterCreatePage(props) {
 
 
   function handleOneShotChange(evt, { checked: makeOneShot }) {
-    console.log('[CharacterCreatePage handleOneShotChange] makeOneShot %o', makeOneShot);
     if (makeOneShot) {
       // show confirmation
       setShowOneShotConfirmation(true);
@@ -116,6 +120,11 @@ export default function CharacterCreatePage(props) {
       />
     );
   }
+
+
+  useLayoutEffect(() => {
+    !Number.isFinite(step) && setStep(0);
+  }, [step, setStep]);
 
 
   return (

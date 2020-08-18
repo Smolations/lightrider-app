@@ -61,6 +61,8 @@ export default function DbSelect(props) {
     }));
   }, [
     collectionName,
+    disabledFilter,
+    filter,
     joinKey,
     joinValue,
     valueKey,
@@ -89,7 +91,7 @@ DbSelect.propTypes = {
    *  a function can be provided here. Any truthy value will disable the
    *  record in the list. Its signature is `(record, index)`.
    */
-  filter: PropTypes.func,
+  disabledFilter: PropTypes.func,
 
   /**
    *  If the dropdown options need to be filtered by arbitrary criteria,
