@@ -150,7 +150,7 @@ export default function CharacterCreatePage(props) {
         </Grid.Row>
       </Grid>
 
-      {oneShot !== null && stepConfigs[step].content}
+      {stepConfigs[step].content}
 
       {validateInfo() && (<Button type="submit">Save</Button>)}
     </Page>

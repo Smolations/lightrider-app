@@ -1,5 +1,5 @@
 export default {
-  oneShot: null,
+  oneShot: false,
   bonusId: null,
   playerName: '',
   name: '',
