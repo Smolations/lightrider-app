@@ -15,6 +15,7 @@ export default function Page(props) {
     children,
     className,
     name,
+    rightAside,
   } = props;
 
   const classes = classNames('Page', className);
@@ -22,6 +23,7 @@ export default function Page(props) {
 
   return (
     <Container className={classes}>
+      {rightAside && (<Header as="h1" floated="right">{rightAside}</Header>)}
       <Header as="h1">{name}</Header>
       {children}
     </Container>
