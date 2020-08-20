@@ -12,13 +12,14 @@ OR this project needs to be able to export the app for standalone use.
 Your prompt will most likely contain your machine/user names (e.g. `my-computername@username$`),
 but we'll omit that information and opt just for the symbol. Commands _after_
 the `$` are what you'd want to copy/paste into terminal. For example, for the
-following instruction, you'd copy/paste "some command" into your terminal:
+following instruction, you'd copy/paste "some command" into your terminal and
+press `enter`:
 ```
 $ some command
 ```
 
 
-### Step 0: Get developer tools
+### STEP 0: Get developer tools
 
 Open your **Terminal** app (`cmd`+`space` to open spotlight, type "terminal", hit `enter`).
 You will want to keep this app open from this point on. You can open additional
@@ -49,9 +50,9 @@ $ mkdir projects
 
 ### STEP 2 (one-time): Install node version manager (`nvm`)
 
-This app is written entirely in javascript, so ther server which runs it needs
+This app is written entirely in javascript, so the server which runs it needs
 a javascript environment. The javascript environment outside of a browser is
-called [NodeJS](https://nodejs.org/en/). It has many different versions so
+called [NodeJS](https://nodejs.org/en/). It has many different versions, so
 we need a way to manage them if the version needed by this app should ever
 change. The software that allows us to do this is called [nvm](https://github.com/nvm-sh/nvm).
 The project page has install instructions, but I'm including them here for
@@ -87,7 +88,7 @@ at the very bottom.
 ```
 echo "-> ~/.profile"
 
-# This tell nvm where to find its assets
+# This tells nvm where to find its assets
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 
 # This loads nvm
@@ -97,7 +98,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 Open a new terminal tab (`cmd`+`t`). You should see the text `-> ~/.profile`
 near the top if all is well. You can close the previous tab in which you were working.
 
-To check that `nvm` is working properly, try giving terminal the following command:
+To check that `nvm` is working properly, try issuing the following command:
 ```
 $ nvm ls
 ```
@@ -125,10 +126,10 @@ $ node -v
 ### STEP 5 (one-time): Clone project repository
 
 You are now ready to get the app on your machine! To get the correct project address,
-visit [the github project page](https://github.com/Smolations/lightrider-app) and
+visit [the github project page](https://github.com/Smolations/lightrider-app) (probably _this_ page) and
 find the green **Code** button near the top right of the page. You'll see an overlay
-and a link in the corner with text: **HTTPS**. Click that link to change the address
-from an SSH address (don't worry about it for now, :yum:) to the HTTPS address.
+and a link in the corner with text: **HTTPS**. Click that link to change the url
+from an SSH url (don't worry about SSH for now, :yum:) to the HTTPS url.
 Click the clipboard icon next to the url to copy it to your clipboard, or manually
 select the text and copy it.
 
@@ -139,7 +140,8 @@ $ git clone https://github.com/Smolations/lightrider-app.git
 ```
 
 This will start the download of the project from github onto your machine. A new
-folder is created in the `projects` folder you created earlier containing the app.
+folder containing the app is created in the `projects` folder, the same one you
+created earlier.
 
 
 ## Managing the project
@@ -152,9 +154,9 @@ left off.
 
 **Navigating to the project folder in terminal.** This needs to be first since the
 rest of the commands need to be run from _within the repository (project) folder_.
-``
+```
 $ cd ~/projects/lightrider-app
-``
+```
 
 
 **Ensuring correct node version is used.** This command uses the aforementioned
@@ -166,11 +168,10 @@ $ nvm use
 ```
 
 **Install/Refresh project dependencies.** Some changes add code that needs to be
-installed. Some removes that kind of code. And some just update that code. You will
+installed. Some changes remove that kind of code. And some changes just update code. You will
 probably not be aware of when this happens, so it's safer to just run this command
 every time you pull down new code or change branches. `npm` is similar to `nvm` in
-that it manages packages for a single app as opposed to versions of software on
-a single _machine_.
+that it manages software for a _single app_ as opposed to software on a _single machine_.
 ```
 $ npm install
 ```
@@ -184,7 +185,7 @@ $ npm start
 
 **Switching branches.** All code is under _version control_. We use a software named
 [Git](https://git-scm.com/). These different versions are contained in what are
-called "branches". One branch might contain code that results in some header reading
+called _branches_. One branch might contain code that results in some header reading
 "Name the Game" while another branch might have different code that renders
 "The Name of the Game" instead. You can switch between branches freely to get access
 to all sorts of different versions.
@@ -195,7 +196,7 @@ get merged when their respective changes are considered "complete." Most commonl
 including in this project, that branch is named `master`. This is the branch you
 are on right after you clone this repository. Generally, you'll stay on this branch
 most of the time, but you may sometimes switch branches to see a particular feature
-that has not been merged. Below is how you can checkout the `master` branch, but
+that has not yet been merged. Below is how you can checkout the `master` branch, but
 you can checkout _any_ branch simply by changing the branch name:
 ```
 $ git checkout master
@@ -218,7 +219,7 @@ $ git fetch
 ```
 
 After running this command, you can run a `git status` to see if your branch is
-"behind" the branch on github. The next command illustrates how tto pull those
+"behind" the branch on github. The next command illustrates how to pull those
 changes down to your local project.
 
 **Pull down recent changes from repository.** Once you are aware that there are
@@ -233,9 +234,9 @@ Let's say that a current task is finished, but the developer wants you to take
 a look at it (that is, run the app using code in  another branch) before it gets
 merged into the `master` branch. Here's the process:
 
-1. determine the branch name (represented by `<branch_name>` in snippet below)
+1. determine the branch name, usually from the developer (represented by `<branch_name>` in snippet below)
 2. make your local project aware of most recent changes/branches in github
-3. checkout the branch locally
+3. checkout the branch locally (get the code on your machine)
 4. install project dependencies
 5. start the server and play with the app
 
@@ -255,27 +256,27 @@ that allows you to see a description of the change, as well as the code changes
 happening in that branch (in case you're interested). You can see the branch name
 underneath the PR title.
 
-Once you're done playing with changes ina branch, you'll  likely want to move back
+Once you're done playing with changes in a branch, you'll likely want to move back
 to the `master` branch. Just press `ctrl`+`c` to  stop  the server, then you can
 simply checkout the  `master` branch.
 
 
 ## REFERENCE
 
-| Command        | Description |
-| -----------    | ----------- |
-|  `cd`          | change directory
-|  `mkdir`       | make directory
-|  `curl`        | makes a web request for a resource (like a file or webpage)
-|  `touch`       | creates a file if it doesn't exist, or updates an existing file's "last touched" timestamp
-|  `echo`        | prints text to the terminal (try it!)
-|  `nvm`         | node version manager. there are many versions of node since new features are getting added to javascript all the time. it is useful to manage multiple versions because some projects are made for specific versions. ensures app run the same on different machines.
-|  `nvm install` | installs a new version of node
-|  `nvm use <version>` | switches to `<version>` or, if `<version>` isn't given, will look for a `.nvmrc` file in current directory and switches to that version (what LRA utilizes)
-|  `git`         | version control manager. allows multiple versions of code to be saved and switched between at any time.
-|  `git clone`   | clones a version of code from an external source onto your local machine
-|  `git fetch`   | checks external source for any new code changes, including new and deleted branches and makes your local repo aware of them.
-|  `git pull`    | this actually runs a `git fetch` behind the scenes, and then "pulls down" any code changes that exists externally onto your local machine. this is how you get new code on your machine.
+| Command                  | Description |
+| ------------------------ | ----------- |
+|  `cd`                    | change directory. the tilde (`~`) is a token for your home folder.
+|  `mkdir`                 | make directory
+|  `curl`                  | makes a web request for a resource (like a file or webpage)
+|  `touch`                 | creates a file if it doesn't exist, or updates an existing file's "last touched" timestamp
+|  `echo`                  | prints text to the terminal (try it!)
+|  `nvm`                   | node version manager. there are many versions of node since new features are getting added to javascript all the time. it is useful to manage multiple versions because some projects are made for specific versions. ensures app run the same on different machines.
+|  `nvm install`           | installs a new version of node
+|  `nvm use <version>`     | switches to `<version>` or, if `<version>` isn't given, will look for a `.nvmrc` file in current directory and switches to that version (what LRA utilizes)
+|  `git`                   | version control manager. allows multiple versions of code to be saved and switched between at any time.
+|  `git clone`             | clones a version of code from an external source onto your local machine
+|  `git fetch`             | checks external source for any new code changes, including new and deleted branches and makes your local repo aware of them.
+|  `git pull`              | this actually runs a `git fetch` behind the scenes, and then "pulls down" any code changes that exists externally onto your local machine. this is how you get new code on your machine.
 |  `git checkout <branch>` | this "checks out" a version of the code specific to changes contained only in the `<branch>`
-|  `npm install` | installs/updates all project dependencies
-|  `npm start`   | this spins up the application development server, allowing access to the app on your local machine. stopthe process with `ctrl`+`c`
+|  `npm install`           | installs/updates all project dependencies
+|  `npm start`             | this spins up the application development server, allowing access to the app on your local machine. stopthe process with `ctrl`+`c`
