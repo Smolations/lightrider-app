@@ -142,50 +142,125 @@ This will start the download of the project from github onto your machine. A new
 folder is created in the `projects` folder you created earlier containing the app.
 
 
---------------------------------------------------------------------------
-the rest of the commands will be used often out of order, and will soon become
-second nature. however, they are listed here, more or less, in the order
-they are used for initial setup.
---------------------------------------------------------------------------
+## Managing the project
+
+The rest of the commands below are used to accomplish various tasks, some in any
+order, and will soon become second nature to you. I know you're eager to get going,
+though, so I'll start with the most relevant commands given where the last section
+left off.
 
 
-// navigating to the project folder in terminal
+**Navigating to the project folder in terminal.** This needs to be first since the
+rest of the commands need to be run from _within the repository (project) folder_.
+``
 $ cd ~/projects/lightrider-app
+``
 
-// NOTE: the rest of these commands should be used while within the project folder
 
-// ensuring correct node version is used
+**Ensuring correct node version is used.** This command uses the aforementioned
+`.nvmrc` file at the root of the project to switch to the correct version. If you
+get an error saying that the version hasn't been installed, install it (see previous
+section on installing `nvm`).
+```
 $ nvm use
+```
 
-// installing/refreshing project dependencies
-// - do this after initial clone and whenever switching branches
+**Install/Refresh project dependencies.** Some changes add code that needs to be
+installed. Some removes that kind of code. And some just update that code. You will
+probably not be aware of when this happens, so it's safer to just run this command
+every time you pull down new code or change branches. `npm` is similar to `nvm` in
+that it manages packages for a single app as opposed to versions of software on
+a single _machine_.
+```
 $ npm install
+```
 
-// start the app
+**Start the app.** Spins up the server and opens a browser tab for it. If you ever
+accidentally close this tab, look at the output of this command for the correct url.
+To halt this server process, you can press `ctrl`+`c`.
+```
 $ npm start
+```
 
-// to stop the server, press ctrl+c
+**Switching branches.** All code is under _version control_. We use a software named
+[Git](https://git-scm.com/). These different versions are contained in what are
+called "branches". One branch might contain code that results in some header reading
+"Name the Game" while another branch might have different code that renders
+"The Name of the Game" instead. You can switch between branches freely to get access
+to all sorts of different versions.
 
-// pull down recent changes from repository
+Since all code lives in a branch, there needs to be a "main" branch which contains
+the final, finished product. This branch is branch into which all other branches
+get merged when their respective changes are considered "complete." Most commonly,
+including in this project, that branch is named `master`. This is the branch you
+are on right after you clone this repository. Generally, you'll stay on this branch
+most of the time, but you may sometimes switch branches to see a particular feature
+that has not been merged. Below is how you can checkout the `master` branch, but
+you can checkout _any_ branch simply by changing the branch name:
+```
+$ git checkout master
+```
+
+**Check current code status.** When you have made code changes in a branch, the
+affected files are said to be _modified_. You may also need to know what branch
+you are currently on or if there are changes you haven't yet pulled down to
+your local project. To check the status, issue the following command:
+```
+$ git status
+```
+
+**Become aware of recent changes from repository.** Your local project has to
+periodically "check in" with the github project in order to become aware of new
+changes to your current branch, other branches, and various other changes we don't
+need to get into at the moment. The following command allows you to do that:
+```
+$ git fetch
+```
+
+After running this command, you can run a `git status` to see if your branch is
+"behind" the branch on github. The next command illustrates how tto pull those
+changes down to your local project.
+
+**Pull down recent changes from repository.** Once you are aware that there are
+new changes on your current branch, you can "pull" those changes down with the
+following command (coincidentally, this command runs a `git fetch` behind the
+scenes, so you can often skip  that step when you're on the `master` branch):
+```
 $ git pull
+```
 
-// to check out a branch from a pull request (a card feature that hasn't been
-// merged into the `master` branch):
-// - get the branch name (represented by <branch_name> in subsequent command)
-//   - no pull request: get branch name from smola
-//   - pull request: in github project, click "Pull Requests" tab, click PR,
-       copy branch name from top of PR
+Let's say that a current task is finished, but the developer wants you to take
+a look at it (that is, run the app using code in  another branch) before it gets
+merged into the `master` branch. Here's the process:
+
+1. determine the branch name (represented by `<branch_name>` in snippet below)
+2. make your local project aware of most recent changes/branches in github
+3. checkout the branch locally
+4. install project dependencies
+5. start the server and play with the app
+
+And here are the commands:
+```
 $ git fetch
 $ git checkout <branch_name>
 $ npm install
 $ npm start
+```
 
-// to move back to `master` branch after messing with a different branch,
-// follow above steps but use `master` as the `<branch_name>`
+Requests for merges are called _pull requests_ (PRs) in github. You can view all of
+the open pull requests by clicking the **Pull Requests** tab in this project.
+If you want to play with the app using the code from one these PRs,
+you need the branch name. Clicking any PR will open it in a new view
+that allows you to see a description of the change, as well as the code changes
+happening in that branch (in case you're interested). You can see the branch name
+underneath the PR title.
+
+Once you're done playing with changes ina branch, you'll  likely want to move back
+to the `master` branch. Just press `ctrl`+`c` to  stop  the server, then you can
+simply checkout the  `master` branch.
 
 
---------------------------------------------------------------------------
-REFERENCE
+## REFERENCE
 
 COMMANDS:
   `cd` - change directory
