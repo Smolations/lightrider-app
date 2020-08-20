@@ -262,36 +262,20 @@ simply checkout the  `master` branch.
 
 ## REFERENCE
 
-COMMANDS:
-  `cd` - change directory
-  `mkdir` - make directory
-  `curl` - makes a web request for a resource (like a file or webpage)
-  `touch` - creates a file if it doesn't exist, or updates an existing
-            file's "last touched" timestamp
-  `echo` - prints text to the terminal (try it!)
-
-  `nvm` - node version manager. there are many versions of node since new
-          features are getting added to javascript all the time. it is
-          useful to manage multiple versions because some projects are made
-          for specific versions. ensures app run the same on different
-          machines.
-  `nvm install` - installs a new version of node
-  `nvm use <version>` - switches to <version> or, if <version> isn't given,
-                        will look for a `.nvmrc` file in current directory
-                        and switches to that version (what LRA utilizes)
-
-  `git` - version control manager. allows multiple versions of code to be
-          saved and switched between at any time.
-  `git clone` - clones a version of code from an external source onto your
-                local machine
-  `git fetch` - checks external source for any new code changes, including new
-                and deleted branches and makes your local repo aware of them.
-  `git pull` - this actually runs a `git fetch` behind the scenes, and then
-               "pulls down" any code changes that exists externally onto your
-               local machine. this is how you get new code on your machine.
-  `git checkout <branch>` - this "checks out" a version of the code specific
-                            to changes contained only in the <branch>
-
-  `npm install` - installs/updates all project dependencies
-  `npm start` - this spins up the application development server, allowing
-                access to the app on your local machine
+| Command        | Description |
+| -----------    | ----------- |
+|  `cd`          | change directory
+|  `mkdir`       | make directory
+|  `curl`        | makes a web request for a resource (like a file or webpage)
+|  `touch`       | creates a file if it doesn't exist, or updates an existing file's "last touched" timestamp
+|  `echo`        | prints text to the terminal (try it!)
+|  `nvm`         | node version manager. there are many versions of node since new features are getting added to javascript all the time. it is useful to manage multiple versions because some projects are made for specific versions. ensures app run the same on different machines.
+|  `nvm install` | installs a new version of node
+|  `nvm use <version>` | switches to `<version>` or, if `<version>` isn't given, will look for a `.nvmrc` file in current directory and switches to that version (what LRA utilizes)
+|  `git`         | version control manager. allows multiple versions of code to be saved and switched between at any time.
+|  `git clone`   | clones a version of code from an external source onto your local machine
+|  `git fetch`   | checks external source for any new code changes, including new and deleted branches and makes your local repo aware of them.
+|  `git pull`    | this actually runs a `git fetch` behind the scenes, and then "pulls down" any code changes that exists externally onto your local machine. this is how you get new code on your machine.
+|  `git checkout <branch>` | this "checks out" a version of the code specific to changes contained only in the `<branch>`
+|  `npm install` | installs/updates all project dependencies
+|  `npm start`   | this spins up the application development server, allowing access to the app on your local machine. stopthe process with `ctrl`+`c`
