@@ -19,8 +19,7 @@ export default function CharactersPage(props) {
     className,
   } = props;
 
-  const classes = classNames('CharactersPage', {
-  }, className);
+  const classes = classNames('CharactersPage', className);
 
 
   return (

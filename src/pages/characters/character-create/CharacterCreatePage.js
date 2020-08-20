@@ -1,14 +1,20 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   Button,
+  Checkbox,
+  Confirm,
   Grid,
   Icon,
-  Modal,
   Progress,
   Step,
 } from 'semantic-ui-react';
+import {
+  useQueryParam,
+  NumberParam,
+} from 'use-query-params';
+
 
 import { Page } from '../../../components/Page';
 
@@ -38,7 +44,8 @@ export default function CharacterCreatePage(props) {
 
   const classes = classNames('CharacterCreatePage', className);
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useQueryParam('step', NumberParam);
+  const [showOneShotConfirmation, setShowOneShotConfirmation] = useState(false);
 
   const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
   console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
@@ -85,25 +92,50 @@ export default function CharacterCreatePage(props) {
   }
 
 
-  function handleOneShotChange(oneShotChoice) {
-    dispatch(updateNewCharacterOneShot(oneShotChoice));
+  function handleOneShotChange(evt, { checked: makeOneShot }) {
+    if (makeOneShot) {
+      // show confirmation
+      setShowOneShotConfirmation(true);
+    } else {
+      dispatch(updateNewCharacterOneShot(makeOneShot));
+    }
+  }
+
+  function handleOneShotConfirmation(makeOneShot) {
+    if (makeOneShot) {
+      dispatch(updateNewCharacterOneShot(makeOneShot));
+    }
+
+    setShowOneShotConfirmation(false);
   }
 
 
+  function renderOneShotToggle() {
+    return (
+      <Checkbox
+        label="One-Shot?"
+        checked={oneShot}
+        onChange={handleOneShotChange}
+        toggle
+      />
+    );
+  }
+
+
+  useLayoutEffect(() => {
+    !Number.isFinite(step) && setStep(0);
+  }, [step, setStep]);
+
+
   return (
-    <Page className={classes} name="Create Character">
-      {oneShot === null && (
-        <Modal
-          defaultOpen={true}
-          size="mini"
-          header="One Shot"
-          content="Are you creating this character for a one shot?"
-          actions={[
-            { key: 'isOneShot', content: 'Yes', positive: true, onClick: () => handleOneShotChange(true) },
-            { key: 'isNotOneShot', content: 'No', positive: true, onClick: () => handleOneShotChange(false) },
-          ]}
-        />
-      )}
+    <Page className={classes} name="Create Character" rightAside={renderOneShotToggle()}>
+      <Confirm
+        header="Are You Sure It's a One-Shot?"
+        content="Making this character for a one-shot may remove information you have already provided."
+        open={showOneShotConfirmation}
+        onConfirm={() => handleOneShotConfirmation(true)}
+        onCancel={() => handleOneShotConfirmation(false)}
+      />
 
       <Step.Group size="mini" fluid>
         {stepConfigs.map((stepConfig, configNdx) => (
@@ -127,7 +159,7 @@ export default function CharacterCreatePage(props) {
         </Grid.Row>
       </Grid>
 
-      {oneShot !== null && stepConfigs[step].content}
+      {stepConfigs[step].content}
 
       {validateInfo() && (<Button type="submit">Save</Button>)}
     </Page>
