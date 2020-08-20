@@ -1,7 +1,6 @@
 # Lightrider App
 A character management and in-game utility for the Lightrider TTRPG.
 
----
 
 ## Machine Setup
 
@@ -35,60 +34,112 @@ A dialog will pop open if they aren't installed. Click the **Install** button
 dialog to install the tools. It doesn't take long.
 
 
-### Step 1 (one-time): Create projects folder
+### STEP 1 (one-time): Create projects folder
 
 You can do this with **Finder**, but you might want to get used to using your
 terminal. You'll need help with the latter, so I'll provide those instructions
 throughout this README.
 
-// - create `projects` folder using finder OR (if putting folder in
-//   your home folder):
+Create a `projects` folder in your home folder.
+```
 $ cd ~
 $ mkdir projects
+```
 
 
-// STEP 2 (one-time): install node version manager (`nvm`)
+### STEP 2 (one-time): Install node version manager (`nvm`)
+
+This app is written entirely in javascript, so ther server which runs it needs
+a javascript environment. The javascript environment outside of a browser is
+called [NodeJS](https://nodejs.org/en/). It has many different versions so
+we need a way to manage them if the version needed by this app should ever
+change. The software that allows us to do this is called [nvm](https://github.com/nvm-sh/nvm).
+The project page has install instructions, but I'm including them here for
+convenience. First, we install it:
+```
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
 
+The **Terminal** app automatically loads certain files if present on your machine.
+This allows you to load certain software, set variables, define functions/aliases,
+and many other things automatically when a new terminal window/tab opens. Nvm
+depends on one of those files so that it always loads and chooses the right
+node version based on your settings. We need to create one of these files if
+it doesn't exist, then add a little content to it.
 
-// STEP 3 (one-time): make sure `nvm` loads in each new terminal window. to
-// achieve this, we need to make sure a file exists that gets automatically
-// loaded by terminal every time it runs. this file may or may not already
-// exist on your machine.
+All of these "magic" files are called _dotfiles_. They are called this because
+they are all prefixed with a period and therefore hidden in your **Finder**
+window by default. First, we'll ensure the file exists (you are probably still
+in your home directory from the previous `cd ~`, but I'm including it here for
+assuredness):
+```
 $ cd ~
 $ touch .profile
+```
 
-// - open new file in your favorite text editor. to see hidden files (like
-// dotfiles), with finder open, press cmd+shift+. (command+shift+<period>).
-// - find `.profile` and drag it to your editor on your dock OR right-click
-// and choose "Open With..." and choose your preferred editor. then paste
-// the following (only content _between_ triple backticks):
+Now we need to open this file and edit its contents. Open a **Finder** window
+if you haven't already and view/open your home folder. To toggle hidden file
+visibility, press `cmd`+`shift`+`.`. Find the `.profile` file from the previous
+step and open it (**TextEdit** is probably fine here; just need a basic text
+editor). If it's empty, paste the following snippet. If it has contents, paste
+the `echo` line at the very top (on its own line) and the rest of the snippet
+at the very bottom.
 ```
 echo "-> ~/.profile"
+
+# This tell nvm where to find its assets
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 ```
 
-// close terminal and open it again. as it loads, you should see "-> ~/.profile" spit out at the top.
-// verify that `nvm` is loaded by typing (should not error):
+Open a new terminal tab (`cmd`+`t`). You should see the text `-> ~/.profile`
+near the top if all is well. You can close the previous tab in which you were working.
+
+To check that `nvm` is working properly, try giving terminal the following command:
+```
 $ nvm ls
+```
+
+You should observe output related to current node versions on your machine and
+_not_ an error about `nvm` being an invalid command.
 
 
-// STEP 4 (one-time): install "correct" node version.
-// - for simplicity, i'll just specify the version here. in the future, the
-//   version is specified by a file in the project itself.
+### STEP 4 (one-time): Install the appropriate node version
+
+For simplicity, I'll just specify the version to install below. In the future,
+you can see the appropriate node version by looking in the `.nvmrc` file at the
+root of this project. The following command will install the target version:
+```
 $ nvm install 10.20.1
+```
+
+You can test that the correct version has been installed and activated with
+the following command:
+```
+$ node -v
+```
 
 
-// STEP 5 (one-time) clone repository (get the app files on your machine)
-// - visit repository: https://github.com/Smolations/lightrider-app
-// - click the green "Code" button near the top and click the "Use HTTPS"
-//   link in the resulting overlay
-// - click the clipboard icon next to url to copy to clipboard or manually
-//   select url text and copy to clipboard
-// - back to your terminal window and paste url for `git clone` command:
+### STEP 5 (one-time): Clone project repository
+
+You are now ready to get the app on your machine! To get the correct project address,
+visit [the github project page](https://github.com/Smolations/lightrider-app) and
+find the green **Code** button near the top right of the page. You'll see an overlay
+and a link in the corner with text: **HTTPS**. Click that link to change the address
+from an SSH address (don't worry about it for now, :yum:) to the HTTPS address.
+Click the clipboard icon next to the url to copy it to your clipboard, or manually
+select the text and copy it.
+
+Now, go back to your terminal window and paste url after typing the `git clone` command:
+```
 $ cd ~/projects
 $ git clone https://github.com/Smolations/lightrider-app.git
+```
+
+This will start the download of the project from github onto your machine. A new
+folder is created in the `projects` folder you created earlier containing the app.
 
 
 --------------------------------------------------------------------------
