@@ -5,13 +5,19 @@ import React, {
   useReducer,
 } from 'react';
 
+import * as appSettingsActions from './global/app-settings/actions';
+
+
+const GlobalStateContext = createContext();
+
+// access to all global state actions
+export {
+  appSettingsActions,
+};
 
 // for convenience, re-export other state stuff here
 export { default as globalInitialState } from './initial-state';
 export { default as globalReducer } from './reducer';
-
-// exported for use in class-based components (but please don't unless you have to)
-export const GlobalStateContext = createContext();
 
 // grab this within components to access state
 export const useGlobalStateValue = () => useContext(GlobalStateContext);

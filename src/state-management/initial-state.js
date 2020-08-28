@@ -1,6 +1,6 @@
-import { newCharacterInitialState } from './new-character';
+import { appSettingsInitialState } from './global/app-settings';
 
 
 export default {
-  newCharacter: newCharacterInitialState,
+  appSettings: appSettingsInitialState,
 };

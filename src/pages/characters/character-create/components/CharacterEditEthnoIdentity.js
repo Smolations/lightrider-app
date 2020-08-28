@@ -9,15 +9,15 @@ import {
 
 import { DbSelect } from '../../../../components/DbSelect';
 
-import { useGlobalStateValue } from '../../../../state-management';
-import { globalNewCharacterActions } from '../../../../state-management/new-character';
+// import { useGlobalStateValue } from '../../../../state-management';
+import { newCharacterActions, useNewCharacterStateValue } from '../../../../state-management/new-character';
 
 
 const {
   updateNewCharacterReligionId,
   updateNewCharacterLanguageCategoryId,
   updateNewCharacterLanguageId,
-} = globalNewCharacterActions;
+} = newCharacterActions;
 
 
 /**
@@ -29,12 +29,10 @@ export default function CharacterEditEthnoIdentity(props) {
   const classes = classNames('CharacterEditEthnoIdentity', className);
 
   const [{
-    newCharacter: {
-      bonusId,
-      religionId,
-      languages,
-    },
-  }, dispatch] = useGlobalStateValue();
+    bonusId,
+    religionId,
+    languages,
+  }, dispatch] = useNewCharacterStateValue();
 
   const languageLabels = ['First Language', 'Second Language'];
 

@@ -6,18 +6,19 @@ import {
   Form,
   Grid,
   Header,
+  Statistic,
 } from 'semantic-ui-react';
 
 import { lokiCollections } from '../../../../db';
 
 import { useGlobalStateValue } from '../../../../state-management';
-import { globalNewCharacterActions } from '../../../../state-management/new-character';
+import { newCharacterActions, useNewCharacterStateValue } from '../../../../state-management/new-character';
 
 
 const {
   updateNewCharacterAttributes,
   updateNewCharacterSubattributes,
-} = globalNewCharacterActions;
+} = newCharacterActions;
 
 // import './CharacterEditAttributes.scss';
 
@@ -30,27 +31,44 @@ export default function CharacterEditAttributes(props) {
     className,
   } = props;
 
-  const attributeNeutralValue = 5;
-
   const classes = classNames('CharacterEditAttributes', className);
 
+  const [{ appSettings }] = useGlobalStateValue();
+
   const [{
-    newCharacter,
-    newCharacter: {
-      attributes,
-      subattributes,
-    },
-  }, dispatch] = useGlobalStateValue();
-  console.log('[CharacterEditAttributes] newCharacter: %o', newCharacter);
+    attributes,
+    subattributes,
+  }, dispatch] = useNewCharacterStateValue();
 
   const [attrs, setAttrs] = useState([]);
   console.log('[CharacterEditAttributes] attrs: %o', attrs);
+  console.log('[CharacterEditAttributes] attributes: %o', attributes);
+
+  const {
+    totalAttributePoints,
+    perAttributeStartingPoints,
+    maxAttributePoints,
+    minAttributePoints,
+    maxSubattributePoints,
+    minSubattributePoints,
+  } = appSettings.characterCreation;
+
+
+  function getRemainingAttributePoints() {
+    const attributesTotal = Object.values(attributes).reduce((sum, attrPoints) => sum + attrPoints, 0);
+    return totalAttributePoints - attributesTotal;
+  }
+
+  function getRemainingSubattributePoints(attributeId) {
+    const attributesTotal = Object.values(attributes).reduce((sum, attrPoints) => sum + attrPoints, 0);
+    return totalAttributePoints - attributesTotal;
+  }
 
 
   function handleAttrChange(attrId, value) {
     const attrValue = Number(value);
-    const neutralOffset = attrValue - attributeNeutralValue;
-    const wentDownToNeutral = neutralOffset === 0 && attributes[attrId] > attributeNeutralValue;
+    const neutralOffset = attrValue - perAttributeStartingPoints;
+    const wentDownToNeutral = neutralOffset === 0 && attributes[attrId] > perAttributeStartingPoints;
 
     if (neutralOffset <= 0 && !wentDownToNeutral) {
       const attribute = attrs.find((attr) => attr.id === attrId);
@@ -79,7 +97,7 @@ export default function CharacterEditAttributes(props) {
     const subattributeValues = {};
 
     attrsAndSubattrs.forEach((attr) => {
-      attributeValues[attr.id] = attributeNeutralValue;
+      attributeValues[attr.id] = perAttributeStartingPoints;
 
       attr.subattributes.forEach((subattr) => {
         subattributeValues[subattr.id] = 0;
@@ -90,11 +108,21 @@ export default function CharacterEditAttributes(props) {
 
     isEmpty(attributes) && dispatch(updateNewCharacterAttributes(attributeValues));
     isEmpty(subattributes) && dispatch(updateNewCharacterSubattributes(subattributeValues));
-  }, [attributes, subattributes, dispatch]);
+  }, [
+    attributes,
+    subattributes,
+    perAttributeStartingPoints,
+    dispatch,
+  ]);
 
 
   return (
     <Form className={classes} size="huge">
+      <Statistic>
+        <Statistic.Label>Pts Remaining</Statistic.Label>
+        <Statistic.Value>{getRemainingAttributePoints()}</Statistic.Value>
+      </Statistic>
+
       <Grid>
         {attrs.map(attr => (
           <Grid.Row key={`.${attr.id}`} verticalAlign="middle">
@@ -105,10 +133,11 @@ export default function CharacterEditAttributes(props) {
               <Form.Group inline>
                 <Form.Input
                   type="number"
-                  min={3}
-                  max={8}
+                  min={minAttributePoints}
+                  max={maxAttributePoints}
                   value={attributes[attr.id]}
                   onChange={(e, { value }) => handleAttrChange(attr.id, value)}
+                  readOnly={getRemainingAttributePoints() === 0}
                 />
               </Form.Group>
             </Grid.Column>
@@ -119,11 +148,11 @@ export default function CharacterEditAttributes(props) {
                     key={`.${subattr.id}`}
                     label={subattr.name}
                     type="number"
-                    min={0}
-                    max={3}
+                    min={minSubattributePoints}
+                    max={maxSubattributePoints}
                     value={subattributes[subattr.id]}
                     onChange={(e, { value }) => handleSubattrChange(subattr.id, value)}
-                    readOnly={subattributes[subattr.id] < 0}
+                    readOnly={subattributes[subattr.id] < minSubattributePoints}
                   />
                 ))}
               </Form.Group>

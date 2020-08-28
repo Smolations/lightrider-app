@@ -19,7 +19,7 @@ import {
 import { Page } from '../../../components/Page';
 
 import { useGlobalStateValue } from '../../../state-management';
-import { globalNewCharacterActions } from '../../../state-management/new-character';
+import { newCharacterActions, useNewCharacterStateValue } from '../../../state-management/new-character';
 
 import CharacterEditGeneral from './components/CharacterEditGeneral';
 import CharacterEditEthnoIdentity from './components/CharacterEditEthnoIdentity';
@@ -31,7 +31,7 @@ import './CharacterCreatePage.scss';
 
 const {
   updateNewCharacterOneShot,
-} = globalNewCharacterActions;
+} = newCharacterActions;
 
 
 /**
@@ -47,7 +47,10 @@ export default function CharacterCreatePage(props) {
   const [step, setStep] = useQueryParam('step', NumberParam);
   const [showOneShotConfirmation, setShowOneShotConfirmation] = useState(false);
 
-  const [{ newCharacter, newCharacter: { oneShot } }, dispatch] = useGlobalStateValue();
+  const [{ appSettings }] = useGlobalStateValue();
+  const [newCharacter, dispatch] = useNewCharacterStateValue();
+
+  const { oneShot } = newCharacter;
   console.log('[CharacterCreatePage] newCharacter: %o', newCharacter)
 
   const stepConfigs = [
@@ -116,13 +119,19 @@ export default function CharacterCreatePage(props) {
         label="One-Shot?"
         checked={oneShot}
         onChange={handleOneShotChange}
+        disabled={appSettings.characterCreation.lockOneShot}
         toggle
       />
     );
   }
 
+  useLayoutEffect(() => {
+    // get one-shot settings and update new character state
+    dispatch(updateNewCharacterOneShot(appSettings.characterCreation.defaultOneShot));
+  }, [dispatch, appSettings.characterCreation.defaultOneShot]);
 
   useLayoutEffect(() => {
+    // default step is first step
     !Number.isFinite(step) && setStep(0);
   }, [step, setStep]);
 

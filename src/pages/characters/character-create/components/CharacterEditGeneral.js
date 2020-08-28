@@ -8,8 +8,8 @@ import {
 
 import { DbSelect } from '../../../../components/DbSelect';
 
-import { useGlobalStateValue } from '../../../../state-management';
-import { globalNewCharacterActions } from '../../../../state-management/new-character';
+// import { useGlobalStateValue } from '../../../../state-management';
+import { newCharacterActions, useNewCharacterStateValue } from '../../../../state-management/new-character';
 
 
 const {
@@ -20,7 +20,7 @@ const {
   updateNewCharacterFactionId,
   updateNewCharacterClassId,
   updateNewCharacterSubclassId,
-} = globalNewCharacterActions;
+} = newCharacterActions;
 
 
 /**
@@ -32,17 +32,15 @@ export default function CharacterEditGeneral(props) {
   const classes = classNames('CharacterEditGeneral', className);
 
   const [{
-    newCharacter: {
-      oneShot,
-      bonusId,
-      playerName,
-      name,
-      raceId,
-      factionId,
-      classId,
-      subclassId,
-    },
-  }, dispatch] = useGlobalStateValue();
+    oneShot,
+    bonusId,
+    playerName,
+    name,
+    raceId,
+    factionId,
+    classId,
+    subclassId,
+  }, dispatch] = useNewCharacterStateValue();
 
 
   function handlePlayerNameChange(e, { value: newPlayerName }) {

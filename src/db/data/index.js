@@ -1,3 +1,4 @@
+import appSettings from './app-settings';
 import attributes from './attributes';
 import bonuses from './bonuses';
 import characters from './characters';
@@ -21,6 +22,7 @@ import subskills from './subskills';
 
 // loki record prototypes
 import {
+  AppSettings,
   Attribute,
   Bonus,
   Character,
@@ -44,6 +46,12 @@ import {
 
 
 export default {
+  APP_SETTINGS: {
+    name: 'appSettings',
+    collectionOptions: { unique: ['id'] },
+    dbOptions: { appSettings: { proto: AppSettings } },
+    data: appSettings
+  },
   CHARACTERS: {
     name: 'characters',
     collectionOptions: {},

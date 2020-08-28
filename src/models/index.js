@@ -1,3 +1,4 @@
+export { default as AppSettings } from './app-settings';
 export { default as Attribute } from './attribute';
 export { default as Bonus } from './bonus';
 export { default as Character } from './character';

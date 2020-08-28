@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import AppContainer from './AppContainer';
 // import * as serviceWorker from './serviceWorker';
 
 import './scss/index.scss';
@@ -9,7 +9,7 @@ import './scss/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppContainer />
   </React.StrictMode>,
   document.getElementById('root')
 );

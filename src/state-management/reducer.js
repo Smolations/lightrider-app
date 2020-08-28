@@ -1,4 +1,4 @@
-import { newCharacterReducer } from './new-character';
+import { appSettingsReducer } from './global/app-settings';
 
 
 // any time a new object is added to global state, this reducer's
@@ -6,8 +6,8 @@ import { newCharacterReducer } from './new-character';
 // included in the destructured first param. And obviously the
 // returned state object should be modified to add that object
 // as well.
-export default function globalReducer({ newCharacter }, action) {
+export default function globalReducer({ appSettings }, action) {
   return {
-    newCharacter: newCharacterReducer(newCharacter, action),
+    appSettings: appSettingsReducer(appSettings, action),
   };
 }
